@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking Rental - Rezerwacja</title>
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/new.css}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+</head>
+<body>
+<header class="header_up">
+    <div class="content_header">
+        <div class="left">
+            <a data-menu="home" class="menu_btn" href="/">Strona główna</a>
+            <a data-menu="new" class="menu_btn" href="new">Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="check">Sprawdź dostępność</a>
+        </div>
+
+        <div class="right">
+            <img class="logo" th:src="@{/images/car.png}" />
+            <p>Parking Rental</p>
+        </div>
+    </div>
+
+
+
+</header>
+
+<main>
+<form>
+    <input class="date_end" type="datetime-local" placeholder="Click here!">
+</form>
+</main>
+
+</body>
+<script type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script type="text/javascript" th:src="@{/js/new.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+flatpickr(".date_end", {
+    mode: "range",
+    minDate: "today",
+    dateFormat: "Y-m-d",
+    showMonths: 2
+});
+</script>
+</html>

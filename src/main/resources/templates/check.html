@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sprawdzanie dostępności</title>
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+</head>
+<body>
+<header class="header_up">
+    <div class="content_header">
+
+        <div class="left">
+            <a data-menu="home" class="menu_btn" href="/">Strona główna</a>
+            <a data-menu="new" class="menu_btn" href="new">Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="check">Sprawdź dostępność</a>
+        </div>
+
+        <div class="right">
+            <img class="logo" th:src="@{/images/car.png}" />
+            <p>Parking Rental</p>
+        </div>
+    </div>
+</header>
+
+
+<ul th:each="spot, status: ${parkingSpots}">
+    <li>ID: <span th:text="${spot.getId()}"></span> <span>my mind</span></li>
+</ul>
+
+
+</body>
+<script type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script>
+   flatpickr("input[type=datetime-local]", {});
+</script>
+</html>
