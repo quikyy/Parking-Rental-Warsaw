@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface ParkingSpotRepository extends JpaRepository <ParkingSpot, Integer> {
 
-    List <ParkingSpot> findAllByCustomerIsNullAndOrderIsNull();
 }

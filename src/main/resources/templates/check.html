@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <title>Sprawdzanie dostępności</title>
     <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/all.css}" rel="stylesheet" />
 </head>
 <body>
 <header class="header_up">
     <div class="content_header">
-
         <div class="left">
-            <a data-menu="home" class="menu_btn" href="/">Strona główna</a>
-            <a data-menu="new" class="menu_btn" href="new">Nowa rezerwacja</a>
-            <a data-menu="avail" class="menu_btn" href="check">Sprawdź dostępność</a>
+            <a data-menu="home" class="menu_btn" href="/"><i class="fa-solid fa-house-chimney"></i>Strona główna</a>
+            <a data-menu="new" class="menu_btn" href="new"><i class="fa-solid fa-plane-circle-check"></i>Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="check"><i class="fa-solid fa-eye"></i>Znajdź moja rezerwacje</a>
         </div>
 
         <div class="right">
@@ -23,10 +23,6 @@
     </div>
 </header>
 
-
-<ul th:each="spot, status: ${parkingSpots}">
-    <li>ID: <span th:text="${spot.getId()}"></span> <span>my mind</span></li>
-</ul>
 
 
 </body>

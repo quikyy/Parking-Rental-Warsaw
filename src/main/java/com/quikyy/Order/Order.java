@@ -1,13 +1,14 @@
 package com.quikyy.Order;
 
-import com.quikyy.Customer.Customer;
 import com.quikyy.Parking.ParkingSpot;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -18,26 +19,48 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String firstName;
+    private String lastName;
+    private String telNum;
     private String carMark;
     private String carPlate;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-
-    @OneToOne
+    private LocalDate startDate;
+    private LocalDate endDate;
+    @ManyToOne
+    @JoinColumn(name = "spot_id")
     private ParkingSpot parkingSpot;
 
-    @OneToOne
-    private Customer customer;
+    @Transient
+    private String startDateAsString;
+    @Transient
+    private String endDateAsString;
 
     public Order() {
     }
 
-    public Order(String carMark, String carPlate, LocalDateTime startDate, LocalDateTime endDate, ParkingSpot parkingSpot, Customer customer) {
+    public Order(String firstName, String lastName, LocalDate startDate, LocalDate endDate, ParkingSpot parkingSpot) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.parkingSpot = parkingSpot;
+    }
+
+    public Order(String firstName, String lastName, LocalDate startDate, LocalDate endDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Order(String firstName, String lastName, String telNum, String carMark, String carPlate, LocalDate startDate, LocalDate endDate, ParkingSpot parkingSpot) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.telNum = telNum;
         this.carMark = carMark;
         this.carPlate = carPlate;
         this.startDate = startDate;
         this.endDate = endDate;
         this.parkingSpot = parkingSpot;
-        this.customer = customer;
     }
 }

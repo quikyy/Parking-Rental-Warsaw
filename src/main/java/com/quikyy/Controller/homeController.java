@@ -10,26 +10,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class viewController {
+public class homeController {
     @Autowired
     private final ParkingSpotRepository parkingSpotRepository;
 
-    public viewController(ParkingSpotRepository parkingSpotRepository) {
+    public homeController(ParkingSpotRepository parkingSpotRepository) {
         this.parkingSpotRepository = parkingSpotRepository;
     }
 
-
-    @GetMapping("check")
-    public String checkFreeSpots(Model model){
-        List<ParkingSpot> parkingSpots = parkingSpotRepository.findAllByCustomerIsNullAndOrderIsNull();
-        model.addAttribute("parkingSpots", parkingSpots);
-        return "check";
-    }
-
-    @GetMapping("new")
-    public String makeNewReservation(Model model){
-
-        return "new";
-    }
-
+//    @GetMapping("check")
+//    public String checkFreeSpots(Model model){
+////        List<ParkingSpot> parkingSpots = parkingSpotRepository.findAllByOrderIsNull();
+//        model.addAttribute("parkingSpots", parkingSpots);
+//        return "check";
+//    }
 }

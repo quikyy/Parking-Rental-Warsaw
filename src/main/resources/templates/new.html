@@ -7,14 +7,15 @@
     <link th:href="@{/css/header.css}" rel="stylesheet" />
     <link th:href="@{/css/new.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
+    <link th:href="@{/css/all.css}" rel="stylesheet" />
 </head>
 <body>
 <header class="header_up">
     <div class="content_header">
         <div class="left">
-            <a data-menu="home" class="menu_btn" href="/">Strona główna</a>
-            <a data-menu="new" class="menu_btn" href="new">Nowa rezerwacja</a>
-            <a data-menu="avail" class="menu_btn" href="check">Sprawdź dostępność</a>
+            <a data-menu="home" class="menu_btn" href="/"><i class="fa-solid fa-house-chimney"></i>Strona główna</a>
+            <a data-menu="new" class="menu_btn" href="new"><i class="fa-solid fa-plane-circle-check"></i>Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="check"><i class="fa-solid fa-eye"></i>Znajdź moja rezerwacje</a>
         </div>
 
         <div class="right">
@@ -22,16 +23,42 @@
             <p>Parking Rental</p>
         </div>
     </div>
-
-
-
 </header>
 
 <main>
-<form>
-    <input class="date_end" type="datetime-local" placeholder="Click here!">
-</form>
+<!--    <p class="freeSpots_counter">Ilośc wolnych miejsc: <span class="freeSpots_counter_span" th:text="${freeParkingSpots}"></span></p>-->
+
+
+    <form class="whole_form" th:action="@{/make-reservation}" th:object="${newOrder}" method="post">
+        <div class="personal_details">
+
+            <div>
+                <p>Imię</p>
+                <input th:field="*{firstName}" type="text">
+            </div>
+
+            <div>
+                <p>Nazwisko</p>
+                <input th:field="*{lastName}" type="text">
+            </div>
+        </div>
+        <div class="date_picker">
+            <p>Data rozpoczęcia</p>
+            <input th:field="*{startDateAsString}" type="datetime-local" class="calendar" placeholder="Click here!">
+
+            <p>Data zakończenia</p>
+            <input th:field="*{endDateAsString}" type="date" class="calendar" placeholder="Click here!">
+        </div>
+        <button type="submit">Rezerwuj</button>
+    </form>
+
+    <div class="info">
+
+    </div>
+
+
 </main>
+
 
 </body>
 <script type="text/javascript"></script>
@@ -39,11 +66,9 @@
 <script type="text/javascript" th:src="@{/js/new.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-flatpickr(".date_end", {
-    mode: "range",
+flatpickr(".calendar", {
     minDate: "today",
-    dateFormat: "Y-m-d",
-    showMonths: 2
+    showMonths: 2,
 });
 </script>
 </html>

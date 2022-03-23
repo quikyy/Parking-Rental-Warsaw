@@ -1,6 +1,39 @@
 main {
+    position: relative;
     margin: 0 auto;
-    margin-top: 2vh;
+    margin-top: 1vh;
     height: 50vh;
-    width: 60%;
+    width: 1100px;
 }
+
+.freeSpots_counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.freeSpots_counter_span {
+    color: transparent;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+main {
+    display: flex;
+    height: 500px;
+}
+.whole_form {
+    background: cadetblue;
+    width: 50%;
+}
+
+.info {
+    background: firebrick;
+    width: 50%;
+}
+
+
+
+

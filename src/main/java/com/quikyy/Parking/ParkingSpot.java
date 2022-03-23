@@ -1,12 +1,14 @@
 package com.quikyy.Parking;
 
-import com.quikyy.Customer.Customer;
+
 import com.quikyy.Order.Order;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,18 +19,12 @@ public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private String isTaken = "NO";
 
-    @OneToOne
-    private Customer customer;
-
-    @OneToOne
-    private Order order;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Order> orderList = new ArrayList<>();
 
     public ParkingSpot() {
     }
 
-    public ParkingSpot(Customer customer, Order order) {
-        this.customer = customer;
-        this.order = order;
-    }
 }
