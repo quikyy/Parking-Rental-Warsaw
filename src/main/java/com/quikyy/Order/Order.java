@@ -1,9 +1,12 @@
 package com.quikyy.Order;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quikyy.Parking.ParkingSpot;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.text.RandomStringGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -26,12 +29,17 @@ public class Order {
     private String carPlate;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String referenceNubmer;
+
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "spot_id")
     private ParkingSpot parkingSpot;
 
+    @JsonIgnore
     @Transient
     private String startDateAsString;
+    @JsonIgnore
     @Transient
     private String endDateAsString;
 
@@ -63,4 +71,5 @@ public class Order {
         this.endDate = endDate;
         this.parkingSpot = parkingSpot;
     }
+
 }

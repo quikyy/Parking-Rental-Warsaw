@@ -1,6 +1,7 @@
 package com.quikyy.Parking;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.quikyy.Order.Order;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class ParkingSpot {
     private int id;
     private String isTaken = "NO";
 
+    @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER)
     private List<Order> orderList = new ArrayList<>();
 

@@ -1,38 +1,151 @@
-main {
-    position: relative;
+.wrapper{
     margin: 0 auto;
-    margin-top: 1vh;
-    height: 50vh;
     width: 1100px;
+    margin-top: 20px;
 }
 
-.freeSpots_counter {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 16px;
-    letter-spacing: 2px;
-}
-
-.freeSpots_counter_span {
-    color: transparent;
-    font-weight: bold;
+section p {
     font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 main {
     display: flex;
-    height: 500px;
+    justify-content: space-between;
+    position: relative;
+    margin-top: 50px;
 }
 .whole_form {
-    background: cadetblue;
-    width: 50%;
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    gap:60px;
 }
 
-.info {
-    background: firebrick;
-    width: 50%;
+.whole_form h1 {
+    position: absolute;
+    top: -50px;
+    left: 0;
 }
+
+.whole_form p {
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.whole_form input {
+    position: relative;
+    bottom: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 5px 5px;
+    border-radius: 5px;
+    width: 10vw;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.personal_details  {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    justify-content: center;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+}
+
+.personal_details div {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px;
+}
+
+.car_details {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    justify-content: space-between;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+}
+
+.car_details div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 60px;
+}
+
+.date_picker {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 90px;
+    justify-content: space-between;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    border-radius: 10px;
+}
+
+.date_picker div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px 60px;
+}
+
+.right_side {
+    display: flex;
+    flex-direction: column;
+    width: 32%;
+    border-radius: 10px;
+}
+
+.right_side .upper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 14px;
+    color: white;
+    letter-spacing: 2px;
+    width: 100%;
+    height: 60%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    background-color: #a9d6e5;
+}
+
+.upper p  {
+    padding-left: 10px;
+}
+
+.upper span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.upper .priceForParkingP {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.right_side .lower {
+    width: 100%;
+    height: 40%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #61a5c2;
+}
+
+
+
 
 
 

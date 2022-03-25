@@ -25,39 +25,75 @@
     </div>
 </header>
 
-<main>
-<!--    <p class="freeSpots_counter">Ilośc wolnych miejsc: <span class="freeSpots_counter_span" th:text="${freeParkingSpots}"></span></p>-->
+<div class="wrapper">
+    <section>
+        <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji, a nasi pracownicy dołożą wszelkich starań, aby Państwa podróż przebiegała sprawnie i przyjemnie.</p>
+    </section>
 
 
-    <form class="whole_form" th:action="@{/make-reservation}" th:object="${newOrder}" method="post">
-        <div class="personal_details">
+    <main>
+        <form class="whole_form" th:action="@{/new}" th:object="${newOrderDTO}" method="post">
+            <div class="personal_details">
+                <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
+                <div>
+                    <p>Imię</p>
+                    <input th:field="*{firstName}" type="text" placeholder="np: Jan">
+                </div>
 
-            <div>
-                <p>Imię</p>
-                <input th:field="*{firstName}" type="text">
+                <div>
+                    <p>Nazwisko</p>
+                    <input th:field="*{lastName}" type="text" placeholder="np: Kowalski">
+                </div>
+
+                <div>
+                    <p>Telefon</p>
+                    <input th:field="*{telNum}" type="number" placeholder="587 782 647">
+                </div>
             </div>
 
-            <div>
-                <p>Nazwisko</p>
-                <input th:field="*{lastName}" type="text">
+            <div class="car_details">
+                <h1><i class="fa-solid fa-car-on"></i> Dane dotyczące samochodu</h1>
+                <div>
+                    <p>Marka i model samochodu</p>
+                    <input th:field="*{carMark}" type="text">
+                </div>
+
+                <div>
+                    <p>Numer rejestracji</p>
+                    <input th:field="*{carPlate}" type="text">
+                </div>
+
             </div>
+
+            <div class="date_picker">
+                <h1><i class="fa-solid fa-plane-departure"></i> Dane dotyczące podróży</h1>
+                <div>
+                    <p>Data rozpoczęcia</p>
+                    <input required  th:field="*{startDateAsString}" type="datetime-local" class="calendar start_date">
+                </div>
+
+                <div>
+                    <p>Data zakończenia</p>
+                    <input required th:field="*{endDateAsString}" type="date" class="calendar end_date">
+                </div>
+            </div>
+
+            <button onclick="return checkIfEmpty()" class="form_btn" type="submit">Rezerwuj</button>
+
+        </form>
+        <div class="right_side">
+            <div class="upper">
+                <p>Parking dla Ciebie</p>
+                <p>Warszawa Okęcie Chopin Airport</p>
+                <p>Data przyjazdu: <span class="dateOfStart"></span></p>
+                <p>Data odjazdu: <span class="dateOfEnd"></span></p>
+                <p class="priceForParkingP">Cena: <span class="priceForParkingSpan"></span></p>
+            </div>
+            <div class="lower"></div>
         </div>
-        <div class="date_picker">
-            <p>Data rozpoczęcia</p>
-            <input th:field="*{startDateAsString}" type="datetime-local" class="calendar" placeholder="Click here!">
+    </main>
+</div>
 
-            <p>Data zakończenia</p>
-            <input th:field="*{endDateAsString}" type="date" class="calendar" placeholder="Click here!">
-        </div>
-        <button type="submit">Rezerwuj</button>
-    </form>
-
-    <div class="info">
-
-    </div>
-
-
-</main>
 
 
 </body>
@@ -68,7 +104,7 @@
 <script>
 flatpickr(".calendar", {
     minDate: "today",
-    showMonths: 2,
+    showMonths: 1,
 });
 </script>
 </html>

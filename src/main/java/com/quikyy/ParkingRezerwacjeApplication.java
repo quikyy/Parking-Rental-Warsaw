@@ -2,6 +2,7 @@ package com.quikyy;
 
 import com.quikyy.Order.Order;
 import com.quikyy.Order.OrderRepository;
+import com.quikyy.Order.OrderService;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
@@ -31,6 +32,9 @@ public class ParkingRezerwacjeApplication implements CommandLineRunner {
     @Autowired
     ParkingService parkingService;
 
+    @Autowired
+    OrderService orderService;
+
     @Override
     public void run(String... args) throws Exception {
     miejscaParkingowe();
@@ -58,6 +62,7 @@ public class ParkingRezerwacjeApplication implements CommandLineRunner {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Order order1 = new Order("Szymon", "Paczuski", LocalDate.parse(start1, dateTimeFormatter), LocalDate.parse(end1, dateTimeFormatter), parkingSpot);
+        order1.setReferenceNubmer(orderService.generateRefernceNumer());
         orderRepository.save(order1);
 
         List<Order> orderList = parkingSpot.getOrderList();
@@ -74,6 +79,7 @@ public class ParkingRezerwacjeApplication implements CommandLineRunner {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Order order1 = new Order("Marek", "Kowalczyk", LocalDate.parse(start1, dateTimeFormatter), LocalDate.parse(end1, dateTimeFormatter), parkingSpot);
+        order1.setReferenceNubmer(orderService.generateRefernceNumer());
         orderRepository.save(order1);
 
         List<Order> orderList = parkingSpot.getOrderList();
@@ -90,6 +96,7 @@ public class ParkingRezerwacjeApplication implements CommandLineRunner {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Order order1 = new Order("Anna", "Topyk", LocalDate.parse(start1, dateTimeFormatter), LocalDate.parse(end1, dateTimeFormatter), parkingSpot);
+        order1.setReferenceNubmer(orderService.generateRefernceNumer());
         orderRepository.save(order1);
 
         List<Order> orderList = parkingSpot.getOrderList();

@@ -9,13 +9,13 @@ window.addEventListener("load", function () {
     console.log(url);
     menu_btn.forEach(btn => {
         if(url == "http://localhost:8080/" && btn.dataset.menu == "home") {
-            btn.style.color = "#ffb703";
+            btn.style.color = "#FF9E00";
         }
         else if(url == "http://localhost:8080/check" && btn.dataset.menu == "avail") {
-            btn.style.color = "#ffb703";
+            btn.style.color = "#FF9E00";
         }
         else if(url == "http://localhost:8080/new" && btn.dataset.menu == "new") {
-            btn.style.color = "#ffb703";
+            btn.style.color = "#FF9E00";
         }
     })
 })

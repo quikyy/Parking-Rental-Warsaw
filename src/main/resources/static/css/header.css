@@ -11,7 +11,7 @@ body {
 .header_up {
     height: 50px;
     width: 100%;
-    background-color: #023e8a;
+    background-color: #023E8A;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 .content_header .left a:hover {
-    color: #90e0ef;
+    color: #d9ed92;
 }
 
 .left i {

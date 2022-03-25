@@ -6,6 +6,7 @@
     <title>Sprawdzanie dostępności</title>
     <link th:href="@{/css/header.css}" rel="stylesheet" />
     <link th:href="@{/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/css/check.css}" rel="stylesheet" />
 </head>
 <body>
 <header class="header_up">
@@ -22,6 +23,46 @@
         </div>
     </div>
 </header>
+
+
+<main>
+    <form th:action="@{/check}" method="get">
+        <input placeholder="podaj id" name="reference_number">
+        <button type="submit">click</button>
+    </form>
+
+<!--    <p>Lista wszystkich zamówień:</p>-->
+<!--    <table>-->
+<!--        <thead>-->
+<!--        <tr>Imię</tr>-->
+<!--        <tr>Nazwisko</tr>-->
+<!--        <tr>Data rozpoczęcia</tr>-->
+<!--        <tr>Data zakończenia</tr>-->
+<!--        <tr>Miejsce parkingowe</tr>-->
+<!--        </thead>-->
+
+<!--        <tbody>-->
+<!--        <tr th:each="order: ${orderList}">-->
+<!--            <td><span th:text="${order.firstName}"></span></td>-->
+<!--            <td><span th:text="${order.lastName}"></span></td>-->
+<!--            <td><span th:text="${order.startDate}"></span></td>-->
+<!--            <td><span th:text="${order.endDate}"></span></td>-->
+<!--            <td><span th:text="${order.getParkingSpot().getId()}"></span></td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+
+<!--    <h1>Testuje tutaj: <span th:text="${szymon.firstName!=null}? ${szymon.firstName}:''" ></span></h1>-->
+
+    <div th:unless="${order.firstName==null}" class="divek">
+        <h1>Rezerwacja: </h1>
+        <p>Imię i nazwisko: <span th:text="${order.firstName}"></span> <span th:text="${order.lastName}"></span></p>
+        <p>Numer zamówienia: <span th:text="${order.referenceNubmer}"></span></p>
+    </div>
+</main>
+
+
 
 
 
