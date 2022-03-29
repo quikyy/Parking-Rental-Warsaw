@@ -25,11 +25,9 @@ public class OrderService {
         orderDTO.setStartDate(formatStartEndDate(orderDTO.getStartDateAsString()));
         orderDTO.setEndDate(formatStartEndDate(orderDTO.getEndDateAsString()));
         if(orderDTO.getStartDate().isBefore(orderDTO.getEndDate()) || orderDTO.getStartDate().isEqual(orderDTO.getEndDate())){
-            System.out.println("Daty są poprawnie ustawione.");
             return true;
         }
         else {
-            System.out.println("Daty nie są poprawnie wypełnione.");
             return false;
         }
     }
@@ -38,9 +36,7 @@ public class OrderService {
         if(validateStartEndDate(orderDTO)) {
             ParkingSpot spot = parkingService.getFreeParkingSpot(orderDTO);
             if(spot != null){
-//               Dodaj order od DB
-                orderDTO.setReferenceNubmer(generateRefernceNumer());
-
+                orderDTO.setReferenceNumber(generateRefernceNumer());
                 Order order = new Order();
                 order.setFirstName(orderDTO.getFirstName());
                 order.setLastName(orderDTO.getLastName());
@@ -50,20 +46,17 @@ public class OrderService {
                 order.setStartDate(orderDTO.getStartDate());
                 order.setEndDate(orderDTO.getEndDate());
                 order.setParkingSpot(spot);
-                order.setReferenceNubmer(orderDTO.getReferenceNubmer());
+                order.setReferenceNumber(orderDTO.getReferenceNumber());
                 orderRepository.save(order);
 
-//              Dodaj parking do DB
                 spot.getOrderList().add(order);
                 parkingSpotRepository.save(spot);
                 return true;
             }
         }
         else {
-            System.out.println("Coś nie tak..");
             return false;
         }
-
         return false;
     }
 
@@ -77,5 +70,4 @@ public class OrderService {
         final int refrence_number_lenght = 8;
         return RandomStringUtils.random(refrence_number_lenght, "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
     }
-
 }

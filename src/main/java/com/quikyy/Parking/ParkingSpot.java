@@ -20,7 +20,6 @@ public class ParkingSpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String isTaken = "NO";
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.EAGER)

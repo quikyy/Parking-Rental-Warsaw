@@ -1,16 +1,19 @@
 //Input fields
+const firstNameInput = document.querySelector(".firstname_input");
+const lastNameInput = document.querySelector(".lastname_input");
+const telNumInput = document.querySelector(".phonenumber_input");
+const carMarkInput = document.querySelector(".carmark_input");
+const carPlateInput = document.querySelector(".carplate_input");
 const startDateInput = document.querySelector(".start_date");
 const endDateInput = document.querySelector(".end_date");
-
-//User summary on right side:
-const dateOfStartSpan = document.querySelector(".dateOfStart");
-const dateOfEndSpan = document.querySelector(".dateOfEnd");
-const priceForParkingSpan = document.querySelector(".priceForParkingSpan");
-
-
 function checkIfEmpty(){
-    if(startDateInput.value == "" || endDateInput.value == ""){
-        alert("puste ziomek")
+    if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == ""){
+        alert.classList.remove("hideAlert")
+        overlay.classList.remove("hideAlert")
+        exit_from_alert.addEventListener("click", function (){
+            alert.classList.add("hideAlert")
+            overlay.classList.add("hideAlert")
+        })
         return false;
     }
     else {
@@ -18,21 +21,23 @@ function checkIfEmpty(){
     }
 }
 
-
-
+//User summary on right side:
+const dateOfStartSpan = document.querySelector(".dateOfStart");
+const dateOfEndSpan = document.querySelector(".dateOfEnd");
+const priceForParkingSpan = document.querySelector(".priceForParkingSpan");
 startDateInput.addEventListener("input", function (){
     dateOfStartSpan.innerText = startDateInput.value;
-    if(dateOfStartSpan != "" && dateOfEndSpan.innerText != ""){
+    if(dateOfStartSpan.innerText != "" && dateOfEndSpan.innerText != ""){
         calcDates();
     }
 })
 endDateInput.addEventListener("input", function (){
     dateOfEndSpan.innerText = endDateInput.value;
-    if(dateOfStartSpan != "" && dateOfEndSpan.innerText != ""){
+
+    if(dateOfStartSpan.innerText != "" && dateOfEndSpan.innerText != ""){
         calcDates();
     }
 })
-
 function calcDates(){
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
     const PRICE_PER_DAY = 50;
@@ -63,6 +68,32 @@ function calcDates(){
 
 
 }
+
+//Alert
+const alert = document.getElementById("alert");
+const alert_parking = document.getElementById("alert_parking");
+const overlay = document.getElementById("layover")
+const exit_from_alert = document.getElementById("exit_from_alert")
+const exit_form_alert_parking = document.getElementById("exit_from_alert_parking")
+
+
+
+window.addEventListener("load", function (){
+  if(firstNameInput.value != ""){
+      alert_parking.classList.remove("hideAlert");
+      overlay.classList.remove("hideAlert");
+  }
+})
+exit_form_alert_parking.addEventListener("click", function (){
+    alert_parking.classList.add("hideAlert")
+    overlay.classList.add("hideAlert")
+})
+
+
+
+
+
+
 
 
 

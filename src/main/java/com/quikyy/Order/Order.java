@@ -5,13 +5,9 @@ import com.quikyy.Parking.ParkingSpot;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.text.RandomStringGenerator;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Getter
@@ -29,7 +25,7 @@ public class Order {
     private String carPlate;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String referenceNubmer;
+    private String referenceNumber;
 
     @JsonBackReference
     @ManyToOne
@@ -53,23 +49,4 @@ public class Order {
         this.endDate = endDate;
         this.parkingSpot = parkingSpot;
     }
-
-    public Order(String firstName, String lastName, LocalDate startDate, LocalDate endDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
-
-    public Order(String firstName, String lastName, String telNum, String carMark, String carPlate, LocalDate startDate, LocalDate endDate, ParkingSpot parkingSpot) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.telNum = telNum;
-        this.carMark = carMark;
-        this.carPlate = carPlate;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.parkingSpot = parkingSpot;
-    }
-
 }

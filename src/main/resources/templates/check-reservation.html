@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sprawdzanie dostępności</title>
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/css/check.css}" rel="stylesheet" />
+</head>
+<body>
+<header class="header_up">
+    <div class="content_header">
+        <div class="left">
+            <a data-menu="home" class="menu_btn" href="/"><i class="fa-solid fa-house-chimney"></i>Strona główna</a>
+            <a data-menu="new" class="menu_btn" href="/new-reservation"><i class="fa-solid fa-plane-circle-check"></i>Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="/check-reservation"><i class="fa-solid fa-eye"></i>Znajdź moja rezerwacje</a>
+        </div>
+
+        <div class="right">
+            <img class="logo" th:src="@{/images/car.png}"/>
+            <p>Parking Rental</p>
+        </div>
+    </div>
+</header>
+
+
+<main>
+    <form th:action="@{/check-reservation}" method="get">
+        <input placeholder="Podaj numer rezerwacji" name="referenceNumber">
+        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </form>
+
+    <div th:unless="${orderDTO.firstName==null}" class="summary">
+            <h2><i class="fa-solid fa-check"></i> Numer rezerwacji: <span class="referenceNumber" th:text="${orderDTO.getReferenceNumber}"></span></h2>
+            <p><i class="fa-solid fa-person"></i> Imię i naziwsko: <span th:text="${orderDTO.firstName}"> </span> <span th:text="${orderDTO.lastName}"></span></p>
+            <p><i class="fa-solid fa-mobile-screen-button"></i> Telefon: <span th:text="${orderDTO.telNum}"></span></p>
+            <p><i class="fa-solid fa-car"></i> Samochód: <span th:text="${orderDTO.carMark}"></span></p>
+            <p><i class="fa-solid fa-barcode"></i> Rejestracja: <span th:text="${orderDTO.carPlate}"></span></p>
+            <p><i class="fa-solid fa-plane-departure"></i> Data rozpoczęcia <span th:text="${orderDTO.getStartDate()}"></span></p>
+            <p><i class="fa-solid fa-plane-arrival"></i> Data zakończenia: <span th:text="${orderDTO.getEndDate()}"></span></p>
+    </div>
+</main>
+
+
+
+
+
+</body>
+<script type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/js/header.js}"></script>
+<script type="text/javascript" th:src="@{/js/check.js}"></script>
+</html>

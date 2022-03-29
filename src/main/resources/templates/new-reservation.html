@@ -14,8 +14,8 @@
     <div class="content_header">
         <div class="left">
             <a data-menu="home" class="menu_btn" href="/"><i class="fa-solid fa-house-chimney"></i>Strona główna</a>
-            <a data-menu="new" class="menu_btn" href="new"><i class="fa-solid fa-plane-circle-check"></i>Nowa rezerwacja</a>
-            <a data-menu="avail" class="menu_btn" href="check"><i class="fa-solid fa-eye"></i>Znajdź moja rezerwacje</a>
+            <a data-menu="new" class="menu_btn" href="/new-reservation"><i class="fa-solid fa-plane-circle-check"></i>Nowa rezerwacja</a>
+            <a data-menu="avail" class="menu_btn" href="/check-reservation"><i class="fa-solid fa-eye"></i>Znajdź moja rezerwacje</a>
         </div>
 
         <div class="right">
@@ -30,24 +30,35 @@
         <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji, a nasi pracownicy dołożą wszelkich starań, aby Państwa podróż przebiegała sprawnie i przyjemnie.</p>
     </section>
 
+    <div class="hideAlert" id="layover"></div>
+
+    <div class="hideAlert" id="alert">
+        <p>Musisz wypełnić wszystkie pola w formularzu aby dokonać rezerwacji!</p>
+        <i id="exit_from_alert" class="fa-solid fa-circle-xmark"></i>
+    </div>
+
+    <div class="hideAlert" id="alert_parking">
+        <p>W podanym przez Ciebie terminie wszystkie miejsca sa już zajętę. Przepraszamy.</p>
+        <i id="exit_from_alert_parking" class="fa-solid fa-circle-xmark"></i>
+    </div>
 
     <main>
-        <form class="whole_form" th:action="@{/new}" th:object="${newOrderDTO}" method="post">
+        <form class="whole_form" th:action="@{/new-reservation}" th:object="${newOrderDTO}" method="post">
             <div class="personal_details">
                 <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
                 <div>
                     <p>Imię</p>
-                    <input th:field="*{firstName}" type="text" placeholder="np: Jan">
+                    <input class="firstname_input" th:field="*{firstName}" type="text" placeholder="np: Jan">
                 </div>
 
                 <div>
                     <p>Nazwisko</p>
-                    <input th:field="*{lastName}" type="text" placeholder="np: Kowalski">
+                    <input class="lastname_input" th:field="*{lastName}" type="text" placeholder="np: Kowalski">
                 </div>
 
                 <div>
                     <p>Telefon</p>
-                    <input th:field="*{telNum}" type="number" placeholder="587 782 647">
+                    <input class="phonenumber_input" th:field="*{telNum}" type="tel" placeholder="np: 587 782 647">
                 </div>
             </div>
 
@@ -55,12 +66,12 @@
                 <h1><i class="fa-solid fa-car-on"></i> Dane dotyczące samochodu</h1>
                 <div>
                     <p>Marka i model samochodu</p>
-                    <input th:field="*{carMark}" type="text">
+                    <input class="carmark_input" th:field="*{carMark}" type="text" placeholder="np: Volkswagen Golf" >
                 </div>
 
                 <div>
                     <p>Numer rejestracji</p>
-                    <input th:field="*{carPlate}" type="text">
+                    <input class="carplate_input" th:field="*{carPlate}" type="text" placeholder="np: WA 481006">
                 </div>
 
             </div>
@@ -69,27 +80,29 @@
                 <h1><i class="fa-solid fa-plane-departure"></i> Dane dotyczące podróży</h1>
                 <div>
                     <p>Data rozpoczęcia</p>
-                    <input required  th:field="*{startDateAsString}" type="datetime-local" class="calendar start_date">
+                    <input th:field="*{startDateAsString}" type="datetime-local" class="calendar start_date" placeholder="np: 2022-09-18">
                 </div>
 
                 <div>
                     <p>Data zakończenia</p>
-                    <input required th:field="*{endDateAsString}" type="date" class="calendar end_date">
+                    <input th:field="*{endDateAsString}" type="date" class="calendar end_date" placeholder="np: 2022-09-26">
                 </div>
             </div>
 
-            <button onclick="return checkIfEmpty()" class="form_btn" type="submit">Rezerwuj</button>
-
+            <button onsubmit="return false" onclick="return checkIfEmpty()" class="form_btn" type="submit">Rezerwuj</button>
         </form>
         <div class="right_side">
             <div class="upper">
-                <p>Parking dla Ciebie</p>
                 <p>Warszawa Okęcie Chopin Airport</p>
                 <p>Data przyjazdu: <span class="dateOfStart"></span></p>
                 <p>Data odjazdu: <span class="dateOfEnd"></span></p>
                 <p class="priceForParkingP">Cena: <span class="priceForParkingSpan"></span></p>
             </div>
-            <div class="lower"></div>
+            <div class="lower">
+                <p><i class="fa-solid fa-angle-right"></i> Szybki i bezpieczny transfer</p>
+                <p><i class="fa-solid fa-angle-right"></i> Dobra lokalizacja</p>
+                <p><i class="fa-solid fa-angle-right"></i> Najniższe ceny</p>
+            </div>
         </div>
     </main>
 </div>

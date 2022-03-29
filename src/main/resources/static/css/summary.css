@@ -1,0 +1,29 @@
+.wrapper{
+    margin: 0 auto;
+    width: 1100px;
+    margin-top: 20px;
+}
+main {
+    letter-spacing: 1px;
+}
+main h1 {
+    font-size: 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+main h2 {
+    font-size: 20px;
+}
+
+main i {
+    font-size: 16px;
+}
+
+main p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+main span {
+    font-weight: normal;
+}

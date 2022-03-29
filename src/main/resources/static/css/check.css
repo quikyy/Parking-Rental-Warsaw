@@ -6,7 +6,59 @@ main {
     width: 1100px;
 }
 
-.divek {
-    background-color: #90e0ef;
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
 
+form input {
+    height: 25px;
+    width: 25%;
+    text-align: center;
+    font-size: 16px;
+    margin-right: 25px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    letter-spacing: 1px;
+}
+
+form button {
+    border: 0px transparent;
+    background-color: transparent;
+}
+
+form button i {
+    font-size: 26px;
+    cursor: pointer;
+    color: #023E8A;
+    transform: scale(1);
+    transition: 0.2s linear;
+}
+
+i:hover {
+    transform: scale(1.2);
+}
+
+.summary h1 {
+    font-size: 25px;
+}
+
+.summary h2 {
+    font-size: 20px;
+}
+
+.summary i {
+    font-size: 16px;
+}
+
+.summary p {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.summary span {
+    font-weight: normal;
 }
