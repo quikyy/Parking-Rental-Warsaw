@@ -13,14 +13,14 @@ public class CheckController {
     private final OrderRepository orderRepository;
 
     @GetMapping("check-reservation")
-    public String showCheckHTML(Model model, String referenceNumber){
-        System.out.println(referenceNumber);
+    public String showCheckHTML(Model model, Model notfound, String referenceNumber){
         if(referenceNumber == null){
             model.addAttribute("orderDTO", new OrderDTO());
         }
         else {
             Order orderDTO = orderRepository.findOrderByReferenceNumberEquals(referenceNumber);
             if(orderDTO == null){
+                notfound.addAttribute("notFound", referenceNumber);
                 model.addAttribute("orderDTO", new OrderDTO());
             }
             else {

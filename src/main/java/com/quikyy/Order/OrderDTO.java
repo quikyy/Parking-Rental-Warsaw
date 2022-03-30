@@ -15,13 +15,13 @@ public class OrderDTO {
     private String telNum;
     private String carMark;
     private String carPlate;
+    private String emailAddress;
     private LocalDate startDate;
     private LocalDate endDate;
     private ParkingSpot parkingSpot;
     private String startDateAsString;
     private String endDateAsString;
     private String referenceNumber;
-
     public OrderDTO() {
     }
 

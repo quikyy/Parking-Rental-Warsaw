@@ -2,6 +2,7 @@ package com.quikyy.Order;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
+import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -9,18 +10,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Service
+@AllArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingService parkingService;
 
-    public OrderService(OrderRepository orderRepository, ParkingSpotRepository parkingSpotRepository, ParkingService parkingService) {
-        this.orderRepository = orderRepository;
-        this.parkingSpotRepository = parkingSpotRepository;
-        this.parkingService = parkingService;
-    }
-
-//    1. Sprawdzić czy daty są poprawne (nie są w złej kolejności itp)
     public boolean validateStartEndDate(OrderDTO orderDTO){
         orderDTO.setStartDate(formatStartEndDate(orderDTO.getStartDateAsString()));
         orderDTO.setEndDate(formatStartEndDate(orderDTO.getEndDateAsString()));
@@ -31,18 +26,21 @@ public class OrderService {
             return false;
         }
     }
-//    2. Znajdz wolne miejsce dla tego zamówienia i jeżeli jest, to zapisz zamówienie.
+
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
             ParkingSpot spot = parkingService.getFreeParkingSpot(orderDTO);
             if(spot != null){
                 orderDTO.setReferenceNumber(generateRefernceNumer());
+                orderDTO.setParkingSpot(spot);
+
                 Order order = new Order();
                 order.setFirstName(orderDTO.getFirstName());
                 order.setLastName(orderDTO.getLastName());
                 order.setTelNum(orderDTO.getTelNum());
                 order.setCarMark(orderDTO.getCarMark());
                 order.setCarPlate(orderDTO.getCarPlate());
+                order.setEmailAddress(orderDTO.getEmailAddress());
                 order.setStartDate(orderDTO.getStartDate());
                 order.setEndDate(orderDTO.getEndDate());
                 order.setParkingSpot(spot);
@@ -57,7 +55,7 @@ public class OrderService {
         else {
             return false;
         }
-        return false;
+            return false;
     }
 
     public LocalDate formatStartEndDate(String data) {

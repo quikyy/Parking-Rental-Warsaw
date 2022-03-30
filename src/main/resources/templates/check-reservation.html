@@ -32,19 +32,35 @@
     </form>
 
     <div th:unless="${orderDTO.firstName==null}" class="summary">
-            <h2><i class="fa-solid fa-check"></i> Numer rezerwacji: <span class="referenceNumber" th:text="${orderDTO.getReferenceNumber}"></span></h2>
-            <p><i class="fa-solid fa-person"></i> Imię i naziwsko: <span th:text="${orderDTO.firstName}"> </span> <span th:text="${orderDTO.lastName}"></span></p>
-            <p><i class="fa-solid fa-mobile-screen-button"></i> Telefon: <span th:text="${orderDTO.telNum}"></span></p>
-            <p><i class="fa-solid fa-car"></i> Samochód: <span th:text="${orderDTO.carMark}"></span></p>
-            <p><i class="fa-solid fa-barcode"></i> Rejestracja: <span th:text="${orderDTO.carPlate}"></span></p>
-            <p><i class="fa-solid fa-plane-departure"></i> Data rozpoczęcia <span th:text="${orderDTO.getStartDate()}"></span></p>
-            <p><i class="fa-solid fa-plane-arrival"></i> Data zakończenia: <span th:text="${orderDTO.getEndDate()}"></span></p>
+        <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
+            <div class="personal_details">
+                <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
+                <p>Imię: <span th:text="${orderDTO.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${orderDTO.lastName}"></span></p>
+                <p>Adres email: <span th:text="${orderDTO.emailAddress}"></span></p>
+                <p>Numer telefonu: <span th:text="${orderDTO.telNum}"></span> </p>
+            </div>
+
+            <div class="car_details">
+                <h1><i class="fa-solid fa-car-on"></i> Dane samochodu</h1>
+                <p>Marka samochodu: <span th:text="${orderDTO.carMark}"></span></p>
+                <p>Nr. rejestracyjny: <span th:text="${orderDTO.carPlate}"></span></p>
+            </div>
+
+            <div class="dates">
+                <h1><i class="fa-solid fa-square-parking"></i> Dane podróży</h1>
+                <p>Numer miejsca parkingowego: <span th:text="${orderDTO.parkingSpot.id}"></span></p>
+                <p>Data rozpoczęcia: <span th:text="${orderDTO.startDate}"></span></p>
+                <p>Data zakończenia: <span th:text="${orderDTO.endDate}"></span></p>
+                <p>Ilość dni: <span></span></p>
+                <p>Cena: <span></span></p>
+            </div>
+    </div>
+
+    <div class="notfound" th:unless="${notFound == null}">
+       <p>Brak rezerwacji o numerze <span th:text="${notFound}"></span>. Spróbuj jeszcze raz uwzględniająć wielkość liter.</p>
     </div>
 </main>
-
-
-
-
 
 </body>
 <script type="text/javascript"></script>

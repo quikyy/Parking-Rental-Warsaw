@@ -42,23 +42,37 @@ i:hover {
     transform: scale(1.2);
 }
 
+.summary div {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+
 .summary h1 {
-    font-size: 25px;
+    font-size: 24px;
 }
-
-.summary h2 {
-    font-size: 20px;
-}
-
-.summary i {
-    font-size: 16px;
-}
-
 .summary p {
+    font-size: 14px;
+    padding: 5px 0;
+}
+.summary span {
     font-size: 14px;
     font-weight: bold;
 }
 
-.summary span {
-    font-weight: normal;
+.summary .referenceNumber {
+    background-color: gainsboro;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.referenceNumber span {
+    font-size: 24px;
+}
+
+.notfound {
+    text-align: center;
+    font-size: 20px;
+}
+
+.notfound span {
+    font-weight: bold;
 }

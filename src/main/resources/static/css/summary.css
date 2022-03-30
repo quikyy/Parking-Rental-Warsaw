@@ -3,27 +3,50 @@
     width: 1100px;
     margin-top: 20px;
 }
-main {
+
+.top_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 80px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    font-size: 20px;
     letter-spacing: 1px;
 }
-main h1 {
-    font-size: 25px;
+.top_info p {
+    text-align: center;
+}
+.top_info span {
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.summary div {
     border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 
-main h2 {
-    font-size: 20px;
+.summary h1 {
+    font-size: 24px;
 }
-
-main i {
-    font-size: 16px;
+.summary p {
+    font-size: 14px;
+    padding: 5px 0;
 }
-
-main p {
+.summary span {
     font-size: 14px;
     font-weight: bold;
 }
 
-main span {
-    font-weight: normal;
+.summary .referenceNumber {
+    background-color: gainsboro;
+    font-weight: bold;
+    font-size: 24px;
 }
+
+.referenceNumber span {
+    font-size: 24px;
+}
+
+
+
+

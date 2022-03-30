@@ -27,7 +27,7 @@
 
 <div class="wrapper">
     <section>
-        <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji, a nasi pracownicy dołożą wszelkich starań, aby Państwa podróż przebiegała sprawnie i przyjemnie.</p>
+        <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji.</p>
     </section>
 
     <div class="hideAlert" id="layover"></div>
@@ -57,13 +57,18 @@
                 </div>
 
                 <div>
+                    <p>Adres email: </p>
+                    <input class="email_input" th:field ="*{emailAddress}"type="email" placeholder="np: jan.kowalski@gmail.com">
+                </div>
+
+                <div class="lastDiv">
                     <p>Telefon</p>
                     <input class="phonenumber_input" th:field="*{telNum}" type="tel" placeholder="np: 587 782 647">
                 </div>
             </div>
 
             <div class="car_details">
-                <h1><i class="fa-solid fa-car-on"></i> Dane dotyczące samochodu</h1>
+                <h1><i class="fa-solid fa-car-on"></i> Dane samochodu</h1>
                 <div>
                     <p>Marka i model samochodu</p>
                     <input class="carmark_input" th:field="*{carMark}" type="text" placeholder="np: Volkswagen Golf" >
@@ -73,11 +78,10 @@
                     <p>Numer rejestracji</p>
                     <input class="carplate_input" th:field="*{carPlate}" type="text" placeholder="np: WA 481006">
                 </div>
-
             </div>
 
             <div class="date_picker">
-                <h1><i class="fa-solid fa-plane-departure"></i> Dane dotyczące podróży</h1>
+                <h1><i class="fa-solid fa-plane-departure"></i> Dane podróży</h1>
                 <div>
                     <p>Data rozpoczęcia</p>
                     <input th:field="*{startDateAsString}" type="datetime-local" class="calendar start_date" placeholder="np: 2022-09-18">

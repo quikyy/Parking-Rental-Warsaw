@@ -23,6 +23,7 @@ public class Order {
     private String telNum;
     private String carMark;
     private String carPlate;
+    private String emailAddress;
     private LocalDate startDate;
     private LocalDate endDate;
     private String referenceNumber;
