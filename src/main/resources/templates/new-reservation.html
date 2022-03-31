@@ -8,6 +8,9 @@
     <link th:href="@{/css/new.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
     <link th:href="@{/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/css/loading.css}" rel="stylesheet" />
+    <link th:href="@{/css/loading.min.css}" rel="stylesheet" />
+
 </head>
 <body>
 <header class="header_up">
@@ -31,7 +34,6 @@
     </section>
 
     <div class="hideAlert" id="layover"></div>
-
     <div class="hideAlert" id="alert">
         <p>Musisz wypełnić wszystkie pola w formularzu aby dokonać rezerwacji!</p>
         <i id="exit_from_alert" class="fa-solid fa-circle-xmark"></i>
@@ -41,6 +43,12 @@
         <p>W podanym przez Ciebie terminie wszystkie miejsca sa już zajętę. Przepraszamy.</p>
         <i id="exit_from_alert_parking" class="fa-solid fa-circle-xmark"></i>
     </div>
+
+    <div class="loading">
+        wip :D
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+
 
     <main>
         <form class="whole_form" th:action="@{/new-reservation}" th:object="${newOrderDTO}" method="post">
@@ -93,7 +101,7 @@
                 </div>
             </div>
 
-            <button onsubmit="return false" onclick="return checkIfEmpty()" class="form_btn" type="submit">Rezerwuj</button>
+            <button onsubmit="return false" onclick="return checkIfEmpty()" class="form_btn ld-ext-right" type="submit">Rezerwuj</button>
         </form>
         <div class="right_side">
             <div class="upper">

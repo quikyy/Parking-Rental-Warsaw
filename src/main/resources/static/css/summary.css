@@ -37,14 +37,24 @@
     font-weight: bold;
 }
 
-.summary .referenceNumber {
+.summary .pdf_reference {
+    display: flex;
+    flex-direction: row;
+   align-items: center;
+    justify-content: space-between;
     background-color: gainsboro;
+    font-size: 22px;
+}
+.summary .referenceNumber {
     font-weight: bold;
-    font-size: 24px;
 }
 
 .referenceNumber span {
     font-size: 24px;
+}
+
+.pdf_reference a {
+    cursor: pointer;
 }
 
 

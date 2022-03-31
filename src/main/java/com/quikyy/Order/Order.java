@@ -43,11 +43,4 @@ public class Order {
     public Order() {
     }
 
-    public Order(String firstName, String lastName, LocalDate startDate, LocalDate endDate, ParkingSpot parkingSpot) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.parkingSpot = parkingSpot;
-    }
 }

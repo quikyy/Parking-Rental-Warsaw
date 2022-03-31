@@ -6,6 +6,8 @@ const carMarkInput = document.querySelector(".carmark_input");
 const carPlateInput = document.querySelector(".carplate_input");
 const startDateInput = document.querySelector(".start_date");
 const endDateInput = document.querySelector(".end_date");
+const form_btn = document.querySelector(".form_btn");
+
 function checkIfEmpty(){
     if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == ""){
         alert.classList.remove("hideAlert")
@@ -21,6 +23,9 @@ function checkIfEmpty(){
     }
 }
 
+form_btn.addEventListener("submit", () => {
+    console.log("test");
+})
 //User summary on right side:
 const dateOfStartSpan = document.querySelector(".dateOfStart");
 const dateOfEndSpan = document.querySelector(".dateOfEnd");

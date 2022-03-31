@@ -1,9 +1,13 @@
 package com.quikyy.Order;
+import com.quikyy.MailSender.MailSender;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,6 +19,7 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingService parkingService;
+    private final MailSender mailSender;
 
     public boolean validateStartEndDate(OrderDTO orderDTO){
         orderDTO.setStartDate(formatStartEndDate(orderDTO.getStartDateAsString()));
@@ -49,6 +54,12 @@ public class OrderService {
 
                 spot.getOrderList().add(order);
                 parkingSpotRepository.save(spot);
+
+                SimpleMailMessage message = new SimpleMailMessage();
+                message.setTo(order.getEmailAddress());
+                message.setSubject("Temat");
+                message.setText("Treść");
+                mailSender.getJavaMailSender().send(message);
                 return true;
             }
         }
