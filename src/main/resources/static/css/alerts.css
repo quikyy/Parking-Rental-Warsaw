@@ -1,0 +1,92 @@
+.hideAlert {
+    visibility: hidden;
+}
+
+#rejectedOrderDueToSpots {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+#rejectedLayover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+    opacity: 0.5;
+    background-color: black;
+}
+#rejectedContent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 50%;
+    left: 47%;
+    transform: translate(-50%, -47%);
+    height: 150px;
+    width: 400px;
+    background-color: #FF9E00;
+    border-radius: 10px;
+    z-index: 101;
+}
+#rejectedContent #exitBtnRejectedOrder {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: white;
+}
+#rejectedContent p {
+    text-align: center;
+    color: white;
+    padding: 0px 10px;
+    font-size: 16px;
+}
+
+#loadingIconContainer{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+}
+#loadingLayover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 100;
+    opacity: 0.5;
+    background-color: black;
+    z-index: 99;
+}
+#loadingIcon {
+    position: relative;
+    top: 50%;
+    left: 43%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    z-index: 101;
+    transform: scale(2.5);
+    z-index: 9999;
+}
+
+#loadingIconContainer p {
+    position: absolute;
+    top: 70%;
+    left: 45%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+    z-index: 9999;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 10px;
+    letter-spacing: 1px;
+}
+

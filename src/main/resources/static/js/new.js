@@ -8,17 +8,16 @@ const startDateInput = document.querySelector(".start_date");
 const endDateInput = document.querySelector(".end_date");
 const form_btn = document.querySelector(".form_btn");
 
+const loadingIconContainer = document.getElementById("loadingIconContainer")
+
 function checkIfEmpty(){
     if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == ""){
-        alert.classList.remove("hideAlert")
-        overlay.classList.remove("hideAlert")
-        exit_from_alert.addEventListener("click", function (){
-            alert.classList.add("hideAlert")
-            overlay.classList.add("hideAlert")
-        })
+        console.log("pustee :/")
         return false;
     }
     else {
+        loadingIconContainer.classList.remove("hideAlert")
+
         return true;
     }
 }
@@ -75,24 +74,13 @@ function calcDates(){
 }
 
 //Alert
-const alert = document.getElementById("alert");
-const alert_parking = document.getElementById("alert_parking");
-const overlay = document.getElementById("layover")
-const exit_from_alert = document.getElementById("exit_from_alert")
-const exit_form_alert_parking = document.getElementById("exit_from_alert_parking")
-
-
-
-window.addEventListener("load", function (){
-  if(firstNameInput.value != ""){
-      alert_parking.classList.remove("hideAlert");
-      overlay.classList.remove("hideAlert");
-  }
+const rejectedOrderDueToSpots = document.getElementById("rejectedOrderDueToSpots")
+const exitBtnRejectedOrder = document.getElementById("exitBtnRejectedOrder")
+exitBtnRejectedOrder.addEventListener("click", function (){
+    rejectedOrderDueToSpots.classList.add("hideAlert");
 })
-exit_form_alert_parking.addEventListener("click", function (){
-    alert_parking.classList.add("hideAlert")
-    overlay.classList.add("hideAlert")
-})
+
+
 
 
 

@@ -6,6 +6,7 @@
     <title>Parking Rental - Rezerwacja</title>
     <link th:href="@{/css/header.css}" rel="stylesheet" />
     <link th:href="@{/css/new.css}" rel="stylesheet" />
+    <link th:href="@{/css/alerts.css}" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_blue.css">
     <link th:href="@{/css/all.css}" rel="stylesheet" />
     <link th:href="@{/css/loading.css}" rel="stylesheet" />
@@ -14,6 +15,21 @@
 </head>
 <body>
 <header class="header_up">
+    <div th:unless="${rejectedOrder.endDate == null && rejectedOrder.startDate == null}" id="rejectedOrderDueToSpots">
+        <div id="rejectedLayover"></div>
+        <div id="rejectedContent">
+            <p>W podanym przez Ciebie terminie wszystkie miejsca sa już zajętę. Przepraszamy.</p>
+            <i id="exitBtnRejectedOrder" class="fa-solid fa-circle-xmark"></i>
+        </div>
+    </div>
+
+    <div id="loadingIconContainer" class="hideAlert">
+        <div id="loadingLayover"></div>
+        <div id="loadingIcon" class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        <p>Sprawdzenie Twojej rezerwacji...</p>
+    </div>
+
+
     <div class="content_header">
         <div class="left">
             <a data-menu="home" class="menu_btn" href="/"><i class="fa-solid fa-house-chimney"></i>Strona główna</a>
@@ -32,23 +48,6 @@
     <section>
         <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji.</p>
     </section>
-
-    <div class="hideAlert" id="layover"></div>
-    <div class="hideAlert" id="alert">
-        <p>Musisz wypełnić wszystkie pola w formularzu aby dokonać rezerwacji!</p>
-        <i id="exit_from_alert" class="fa-solid fa-circle-xmark"></i>
-    </div>
-
-    <div class="hideAlert" id="alert_parking">
-        <p>W podanym przez Ciebie terminie wszystkie miejsca sa już zajętę. Przepraszamy.</p>
-        <i id="exit_from_alert_parking" class="fa-solid fa-circle-xmark"></i>
-    </div>
-
-    <div class="loading">
-        wip :D
-        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-    </div>
-
 
     <main>
         <form class="whole_form" th:action="@{/new-reservation}" th:object="${newOrderDTO}" method="post">

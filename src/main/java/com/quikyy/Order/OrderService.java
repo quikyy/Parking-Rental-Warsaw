@@ -5,6 +5,7 @@ import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,7 +32,16 @@ public class OrderService {
             return false;
         }
     }
-
+    public LocalDate formatStartEndDate(String data) {
+        data = data.substring(0, 10);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(data, dateTimeFormatter);
+        return localDate;
+    }
+    public String generateRefernceNumer(){
+        final int refrence_number_lenght = 8;
+        return RandomStringUtils.random(refrence_number_lenght, "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+    }
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
             ParkingSpot spot = parkingService.getFreeParkingSpot(orderDTO);
@@ -55,28 +65,25 @@ public class OrderService {
                 spot.getOrderList().add(order);
                 parkingSpotRepository.save(spot);
 
-                SimpleMailMessage message = new SimpleMailMessage();
-                message.setTo(order.getEmailAddress());
-                message.setSubject("Temat");
-                message.setText("Treść");
-                mailSender.getJavaMailSender().send(message);
+                sendConfirmationMail(order);
                 return true;
             }
         }
         else {
             return false;
         }
-            return false;
+        return false;
     }
-
-    public LocalDate formatStartEndDate(String data) {
-        data = data.substring(0, 10);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(data, dateTimeFormatter);
-        return localDate;
-    }
-    public String generateRefernceNumer(){
-        final int refrence_number_lenght = 8;
-        return RandomStringUtils.random(refrence_number_lenght, "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+    public void sendConfirmationMail(Order order){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(order.getEmailAddress());
+        message.setSubject("Potwierdzenie rezerwacji " + order.getReferenceNumber());
+        message.setText("Dzień dobry! \n" +
+                "Potwierdzenie rezerwacji na naszym parkingu, poniżej przesyłamy wszystkie szczegóły: \n" +
+                "Imię i nazwsiko: " + order.getFirstName() + " " + order.getLastName() + "\n" +
+                "Data rozpoczęcia: " + order.getStartDate() + "\n" +
+                "Data zakończenia :" + order.getLastName() + "\n " +
+                "etc....");
+        mailSender.getJavaMailSender().send(message);
     }
 }
