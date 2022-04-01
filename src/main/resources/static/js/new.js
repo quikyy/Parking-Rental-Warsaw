@@ -12,7 +12,7 @@ const loadingIconContainer = document.getElementById("loadingIconContainer")
 
 function checkIfEmpty(){
     if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == ""){
-        console.log("pustee :/")
+        alert("to na razie jest alerem ale bedzie pop upem. sa puste miejsce w formie")
         return false;
     }
     else {
