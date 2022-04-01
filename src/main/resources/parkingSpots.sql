@@ -1,1 +1,5 @@
 insert into "parking_spot" ("id") values (1)
+insert into "parking_spot" ("id") values (2)
+insert into "parking_spot" ("id") values (3)
+insert into "parking_spot" ("id") values (4)
+insert into "parking_spot" ("id") values (5)
