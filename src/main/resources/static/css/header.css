@@ -13,6 +13,7 @@ body {
     height: 50px;
     width: 100%;
     background-color: #023E8A;
+    z-index: 5;
 }
 
 .header_down {

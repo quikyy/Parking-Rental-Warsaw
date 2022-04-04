@@ -1,5 +1,5 @@
 package com.quikyy.Order;
-import com.quikyy.MailSender.MailSender;
+import com.quikyy.UTILS.MailSender.MailSender;
 import com.quikyy.Parking.ParkingPrice;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;

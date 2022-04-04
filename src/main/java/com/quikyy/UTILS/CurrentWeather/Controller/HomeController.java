@@ -1,7 +1,7 @@
-package com.quikyy.Controller;
+package com.quikyy.UTILS.CurrentWeather.Controller;
 
 import com.quikyy.Parking.ParkingSpotRepository;
-import com.quikyy.UTILS.CurrentWeather;
+import com.quikyy.UTILS.CurrentWeather.CurrentWeather;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -31,5 +31,5 @@ build/
 ### VS Code ###
 .vscode/
 
-/src/main/java/com/quikyy/MailSender/MailSender.java
+/src/main/java/com/quikyy/UTILS/MailSender/MailSender.java
 /src/main/resources/parkingSpots.sql

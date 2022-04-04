@@ -1,4 +1,4 @@
-package com.quikyy.MailSender;
+package com.quikyy.UTILS.MailSender;
 
 import com.quikyy.Order.OrderDTO;
 import org.springframework.context.annotation.Bean;

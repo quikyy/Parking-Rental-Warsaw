@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parking Rental - Strona główna</title>
+    <title>ParkingRental - Warszawa</title>
+    <link rel="icon" type="image/x-icon" th:href="@{/images/car.png}" >
     <link th:href="@{/css/header.css}" rel="stylesheet" />
     <link th:href="@{/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/css/index.css}" rel="stylesheet" />
 </head>
 <body>
 
@@ -31,6 +33,56 @@
         <p class="currentWeather"> <span th:text="${currentWeather}"></span> °C</p>
     </div>
 </header>
+
+<div class="wrapper">
+
+    <main class="mainInfoBackground">
+       <div class="backgroundAndMotto">
+           <div class="gradient"></div>
+       </div>
+    </main>
+        <div class="whyUs">
+            <div class="whyUpper">
+                <p>DLACZEGO <span>MY?</span></p>
+            </div>
+
+            <div class="whyLower">
+
+                <div class="brick">
+                    <i class="fa-solid fa-hand-holding-heart"></i>
+                    <p><span>Dbamy o klientów</span>, oferujemy najlepsze ceny na rynku.</p>
+                </div>
+
+
+                <div class="brick">
+                    <i class="fa-solid fa-people-group"></i>
+                    <p><span>+1 000 000</span> zadowolonych klientów</p>
+                </div>
+
+                <div class="brick">
+                    <i class="fa-solid fa-plane-lock"></i>
+                    <p><span>24 h / 7 dni </span>auto pod stałą ochroną</p>
+                </div>
+
+                <div class="brick">
+                    <i class="fa-solid fa-plane-slash"></i>
+                    <p><span>Bezpłatna anulacja</span> do 24h przed przyjazdem.ą</p>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+
+</div>
+
+
+
+
 </body>
 <script type="text/javascript"></script>
 <script type="text/javascript" th:src="@{/js/header.js}"></script>

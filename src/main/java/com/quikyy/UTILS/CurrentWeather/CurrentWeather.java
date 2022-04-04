@@ -1,5 +1,6 @@
-package com.quikyy.UTILS;
+package com.quikyy.UTILS.CurrentWeather;
 
+import com.quikyy.UTILS.AppDetailsRepostiory;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.Hibernate;

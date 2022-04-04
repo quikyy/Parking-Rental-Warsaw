@@ -1,4 +1,4 @@
-package com.quikyy.Controller;
+package com.quikyy.UTILS.CurrentWeather.Controller;
 
 import com.quikyy.Order.OrderDTO;
 import com.quikyy.Order.OrderRepository;
