@@ -24,7 +24,7 @@
         </div>
     </div>
 </header>
-
+<header class="header_down">
 <div class="wrapper">
 
     <section class="top_info">
@@ -55,19 +55,10 @@
                 <p>Numer miejsca parkingowego: <span th:text="${orderDTO.parkingSpot.id}"></span></p>
                 <p>Data rozpoczęcia: <span th:text="${orderDTO.startDate}"></span></p>
                 <p>Data zakończenia: <span th:text="${orderDTO.endDate}"></span></p>
-                <p>Ilość dni: <span></span></p>
-                <p>Cena: <span></span></p>
+                <p>Ilość dni: <span th:text="${orderDTO.days}"></span></p>
+                <p>Cena: <span th:text="${orderDTO.price}"></span> PLN</p>
             </div>
-
     </main>
-
-<!--     <p><i class="fa-solid fa-person"></i> Imię i naziwsko: <span th:text="${orderDTO.firstName}"> </span> <span th:text="${orderDTO.lastName}"></span></p>
-        <p><i class="fa-solid fa-mobile-screen-button"></i> Telefon: <span th:text="${orderDTO.telNum}"></span></p>
-        <p><i class="fa-solid fa-car"></i> Samochód: <span th:text="${orderDTO.carMark}"></span></p>
-        <p><i class="fa-solid fa-barcode"></i> Rejestracja: <span th:text="${orderDTO.carPlate}"></span></p>
-        <p><i class="fa-solid fa-plane-departure"></i> Data rozpoczęcia <span th:text="${orderDTO.getStartDate()}"></span></p>
-        <p><i class="fa-solid fa-plane-arrival"></i> Data zakończenia: <span th:text="${orderDTO.getEndDate()}"></span></p>-->
-
 </div>
 </body>
 </html>

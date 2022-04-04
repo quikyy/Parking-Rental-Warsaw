@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -24,6 +25,8 @@ public class Order {
     private String carMark;
     private String carPlate;
     private String emailAddress;
+    private BigDecimal price;
+    private long days;
     private LocalDate startDate;
     private LocalDate endDate;
     private String referenceNumber;

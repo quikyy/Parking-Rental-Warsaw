@@ -11,6 +11,7 @@
     <link th:href="@{/css/all.css}" rel="stylesheet" />
     <link th:href="@{/css/loading.css}" rel="stylesheet" />
     <link th:href="@{/css/loading.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/loadingIcon.css}" rel="stylesheet" />
 
 </head>
 <body>
@@ -41,6 +42,12 @@
             <img class="logo" th:src="@{/images/car.png}" />
             <p>Parking Rental</p>
         </div>
+    </div>
+</header>
+<header class="header_down">
+    <div class="content_header_down">
+        <span class="currentTime"></span>
+        <p class="currentWeather"> <span th:text="${currentWeather}"></span> °C</p>
     </div>
 </header>
 

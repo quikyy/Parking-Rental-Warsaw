@@ -9,11 +9,36 @@ body {
 }
 
 .header_up {
+    position: relative;
     height: 50px;
     width: 100%;
     background-color: #023E8A;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+.header_down {
+    position: relative;
+    height: 25px;
+    width: 100%;
+    background-color: #023E8A;
+    box-shadow: 0 4px 2px -2px gray;
+}
+
+.currentTime ,.currentWeather {
+    font-size: 14px;
+    color: white;
+    padding-left: 25px;
+    letter-spacing: 1px;
+}
+
+.content_header_down {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    margin: 0 auto;
+    width: 1100px;
+    height: 100%;
+}
+
 
 .content_header {
     display: flex;

@@ -1,18 +1,19 @@
 package com.quikyy.Order;
 import com.quikyy.MailSender.MailSender;
+import com.quikyy.Parking.ParkingPrice;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
@@ -21,6 +22,8 @@ public class OrderService {
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingService parkingService;
     private final MailSender mailSender;
+    private final ParkingPrice parkingPrice;
+
 
     public boolean validateStartEndDate(OrderDTO orderDTO){
         orderDTO.setStartDate(formatStartEndDate(orderDTO.getStartDateAsString()));
@@ -32,22 +35,46 @@ public class OrderService {
             return false;
         }
     }
+
     public LocalDate formatStartEndDate(String data) {
         data = data.substring(0, 10);
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(data, dateTimeFormatter);
         return localDate;
     }
-    public String generateRefernceNumer(){
-        final int refrence_number_lenght = 8;
-        return RandomStringUtils.random(refrence_number_lenght, "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM");
+
+    public String generateRefernceNumber(){
+        final int referenceNumberLength = 8;
+        final String chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        return RandomStringUtils.random(referenceNumberLength, chars);
     }
+
+    public BigDecimal calculatePrice(OrderDTO orderDTO){
+        long days = DAYS.between(orderDTO.getStartDate(), orderDTO.getEndDate());
+        orderDTO.setDays(days);
+        return new BigDecimal(days * parkingPrice.getPricePerNight());
+    }
+
+    public void sendConfirmationMail(Order order){
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(order.getEmailAddress());
+        message.setSubject("Potwierdzenie rezerwacji " + order.getReferenceNumber());
+        message.setText("Dzień dobry! \n" +
+                "Potwierdzenie rezerwacji na naszym parkingu, poniżej przesyłamy wszystkie szczegóły: \n" +
+                "Imię i nazwsiko: " + order.getFirstName() + " " + order.getLastName() + "\n" +
+                "Data rozpoczęcia: " + order.getStartDate() + "\n" +
+                "Data zakończenia :" + order.getLastName() + "\n " +
+                "etc....");
+        mailSender.getJavaMailSender().send(message);
+    }
+
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
             ParkingSpot spot = parkingService.getFreeParkingSpot(orderDTO);
             if(spot != null){
-                orderDTO.setReferenceNumber(generateRefernceNumer());
+                orderDTO.setReferenceNumber(generateRefernceNumber());
                 orderDTO.setParkingSpot(spot);
+                orderDTO.setPrice(calculatePrice(orderDTO));
 
                 Order order = new Order();
                 order.setFirstName(orderDTO.getFirstName());
@@ -60,12 +87,16 @@ public class OrderService {
                 order.setEndDate(orderDTO.getEndDate());
                 order.setParkingSpot(spot);
                 order.setReferenceNumber(orderDTO.getReferenceNumber());
+                order.setDays(orderDTO.getDays());
+                order.setPrice(orderDTO.getPrice());
+
                 orderRepository.save(order);
 
                 spot.getOrderList().add(order);
                 parkingSpotRepository.save(spot);
 
-                sendConfirmationMail(order);
+//                Wysyłanie maila z potwierdzeniem. Aktualnie: długo trwa, trzeba poprawić wiadomość która jest wysyłana.
+//                sendConfirmationMail(order);
                 return true;
             }
         }
@@ -73,17 +104,5 @@ public class OrderService {
             return false;
         }
         return false;
-    }
-    public void sendConfirmationMail(Order order){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(order.getEmailAddress());
-        message.setSubject("Potwierdzenie rezerwacji " + order.getReferenceNumber());
-        message.setText("Dzień dobry! \n" +
-                "Potwierdzenie rezerwacji na naszym parkingu, poniżej przesyłamy wszystkie szczegóły: \n" +
-                "Imię i nazwsiko: " + order.getFirstName() + " " + order.getLastName() + "\n" +
-                "Data rozpoczęcia: " + order.getStartDate() + "\n" +
-                "Data zakończenia :" + order.getLastName() + "\n " +
-                "etc....");
-        mailSender.getJavaMailSender().send(message);
     }
 }

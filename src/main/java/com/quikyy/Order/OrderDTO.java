@@ -5,6 +5,7 @@ import com.quikyy.Parking.ParkingSpot;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -18,6 +19,8 @@ public class OrderDTO {
     private String emailAddress;
     private LocalDate startDate;
     private LocalDate endDate;
+    private BigDecimal price;
+    private Long days;
     private ParkingSpot parkingSpot;
     private String startDateAsString;
     private String endDateAsString;

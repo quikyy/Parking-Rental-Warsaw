@@ -25,8 +25,12 @@
         </div>
     </div>
 </header>
-
-
+<header class="header_down">
+    <div class="content_header_down">
+        <span class="currentTime"></span>
+        <p class="currentWeather"> <span th:text="${currentWeather}"></span> °C</p>
+    </div>
+</header>
 </body>
 <script type="text/javascript"></script>
 <script type="text/javascript" th:src="@{/js/header.js}"></script>
