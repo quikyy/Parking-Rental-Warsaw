@@ -40,10 +40,10 @@
 .summary .pdf_reference {
     display: flex;
     flex-direction: row;
-   align-items: center;
+    align-items: center;
     justify-content: space-between;
     background-color: gainsboro;
-    font-size: 22px;
+    font-size: 18px;
 }
 .summary .referenceNumber {
     font-weight: bold;

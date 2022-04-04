@@ -1,4 +1,4 @@
-package com.quikyy.UTILS.CurrentWeather.Controller;
+package com.quikyy.Controller;
 
 import com.quikyy.Parking.ParkingSpotRepository;
 import com.quikyy.UTILS.CurrentWeather.CurrentWeather;

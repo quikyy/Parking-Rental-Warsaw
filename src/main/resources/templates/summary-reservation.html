@@ -26,8 +26,12 @@
     </div>
 </header>
 <header class="header_down">
+    <div class="content_header_down">
+        <span class="currentTime"></span>
+        <p class="currentWeather"> <span th:text="${currentWeather}"></span> °C</p>
+    </div>
+</header>
 <div class="wrapper">
-
     <section class="top_info">
         <p>Rezerwacja została utworzona i potwierdzona przez Nas system.</p>
     </section>
@@ -35,7 +39,7 @@
     <main class="summary">
             <div class="pdf_reference">
                 <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
-                <a><i class="fa-solid fa-file-pdf"></i> Pobierz potwierdzenie rezerwacji</a>
+                <a th:href="@{pdf/{id}(id=${orderDTO.referenceNumber})}"><i class="fa-solid fa-file-pdf"></i> Pobierz potwierdzenie rezerwacji</a>
             </div>
             <div class="personal_details">
                 <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
