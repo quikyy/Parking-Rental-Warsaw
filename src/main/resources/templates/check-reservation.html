@@ -39,7 +39,10 @@
     </form>
 
     <div th:unless="${orderDTO.firstName==null}" class="summary">
-        <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
+        <div class="pdf_reference">
+            <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
+            <a th:href="@{check-reservation/pdf/{id}(id=${orderDTO.referenceNumber})}"><i class="fa-solid fa-file-pdf"></i> Pobierz potwierdzenie rezerwacji</a>
+        </div>
             <div class="personal_details">
                 <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
                 <p>Imię: <span th:text="${orderDTO.firstName}"></span></p>

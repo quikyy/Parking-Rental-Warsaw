@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
@@ -70,10 +71,10 @@ public class OrderService {
 
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
-            ParkingSpot spot = parkingService.getFreeParkingSpot(orderDTO);
-            if(spot != null){
+            Optional <ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
+            if(spot.isPresent()){
                 orderDTO.setReferenceNumber(generateRefernceNumber());
-                orderDTO.setParkingSpot(spot);
+                orderDTO.setParkingSpot(spot.get());
                 orderDTO.setPrice(calculatePrice(orderDTO));
 
                 Order order = new Order();
@@ -85,15 +86,15 @@ public class OrderService {
                 order.setEmailAddress(orderDTO.getEmailAddress());
                 order.setStartDate(orderDTO.getStartDate());
                 order.setEndDate(orderDTO.getEndDate());
-                order.setParkingSpot(spot);
+                order.setParkingSpot(spot.get());
                 order.setReferenceNumber(orderDTO.getReferenceNumber());
                 order.setDays(orderDTO.getDays());
                 order.setPrice(orderDTO.getPrice());
 
                 orderRepository.save(order);
 
-                spot.getOrderList().add(order);
-                parkingSpotRepository.save(spot);
+                spot.get().getOrderList().add(order);
+                parkingSpotRepository.save(spot.get());
 
 //                Wysyłanie maila z potwierdzeniem. Aktualnie: długo trwa, trzeba poprawić wiadomość która jest wysyłana.
 //                sendConfirmationMail(order);

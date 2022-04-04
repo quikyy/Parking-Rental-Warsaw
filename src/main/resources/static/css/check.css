@@ -76,3 +76,23 @@ i:hover {
 .notfound span {
     font-weight: bold;
 }
+
+.summary .pdf_reference {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: gainsboro;
+    font-size: 18px;
+}
+.summary .referenceNumber {
+    font-weight: bold;
+}
+
+.referenceNumber span {
+    font-size: 24px;
+}
+
+.pdf_reference a {
+    cursor: pointer;
+}

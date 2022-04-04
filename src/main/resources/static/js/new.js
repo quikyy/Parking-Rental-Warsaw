@@ -8,19 +8,31 @@ const startDateInput = document.querySelector(".start_date");
 const endDateInput = document.querySelector(".end_date");
 const form_btn = document.querySelector(".form_btn");
 
+const allInputs = [...document.querySelectorAll(".whole_form input")]
 const loadingIconContainer = document.getElementById("loadingIconContainer")
 
 function checkIfEmpty(){
-    if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == ""){
-        alert("to na razie jest alerem ale bedzie pop upem. sa puste miejsce w formie")
+    if(firstNameInput.value == "" || lastNameInput.value == "" || telNumInput.value == "" || carMarkInput.value == "" || carPlateInput.value == "" || startDateInput.value == "" || endDateInput.value == "" || !calcDates2()){
+        allInputs.forEach(elem => {
+            if(elem.value == ""){
+                elem.style.backgroundColor = "rgba(255, 0, 0, 0.09)";
+                elem.placeholder = "Pole nie może być puste!"
+            }
+        })
         return false;
     }
     else {
         loadingIconContainer.classList.remove("hideAlert")
-
         return true;
     }
 }
+
+
+allInputs.forEach(elem => elem.addEventListener("input", () =>{
+    if(elem.value != ""){
+        elem.style.backgroundColor = "transparent";
+    }
+}))
 
 form_btn.addEventListener("submit", () => {
     console.log("test");
@@ -68,9 +80,30 @@ function calcDates(){
     else {
         priceForParkingSpan.innerText = "";
     }
+}
 
+function calcDates2(){
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const startDateFromInput = startDateInput.value;
+    const startYear = startDateFromInput.substring(0,4);
+    const startMonth = startDateFromInput.substring(5, 7);
+    const startDay = startDateFromInput.substring(8,10);
 
+    const endDateFromInput = endDateInput.value;
+    const endYear = endDateFromInput.substring(0,4);
+    const endMonth = endDateFromInput.substring(5, 7);
+    const endDay = endDateFromInput.substring(8,10);
 
+    let startDate = new Date(startYear, startMonth -1 , startDay)
+    let endDate = new Date(endYear, endMonth -1 , endDay)
+
+    let diffDays = Math.floor((endDate - startDate) / _MS_PER_DAY);
+    if(diffDays < 0) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 //Alert
