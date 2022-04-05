@@ -71,7 +71,7 @@ public class OrderService {
 
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
-            Optional <ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
+            Optional<ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
             if(spot.isPresent()){
                 orderDTO.setReferenceNumber(generateRefernceNumber());
                 orderDTO.setParkingSpot(spot.get());
