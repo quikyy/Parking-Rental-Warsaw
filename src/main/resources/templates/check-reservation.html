@@ -31,18 +31,21 @@
     </div>
 </header>
 
+<div class="wrapper">
+    <section>
+        <p>Prosimy o uzupełnienie informacji w formularzu rezerwacji.</p>
+    </section>
+    <main>
+        <form th:action="@{/check-reservation}" method="get">
+            <input required placeholder="Podaj numer rezerwacji" name="referenceNumber">
+            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </form>
 
-<main>
-    <form th:action="@{/check-reservation}" method="get">
-        <input placeholder="Podaj numer rezerwacji" name="referenceNumber">
-        <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
-
-    <div th:unless="${orderDTO.firstName==null}" class="summary">
-        <div class="pdf_reference">
-            <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
-            <a th:href="@{check-reservation/pdf/{id}(id=${orderDTO.referenceNumber})}"><i class="fa-solid fa-file-pdf"></i> Pobierz potwierdzenie rezerwacji</a>
-        </div>
+        <div th:unless="${orderDTO.firstName==null}" class="summary">
+            <div class="pdf_reference">
+                <p class="referenceNumber">Numer rezerwacji: <span th:text="${orderDTO.referenceNumber}"></span></p>
+                <a th:href="@{check-reservation/pdf/{id}(id=${orderDTO.referenceNumber})}"><i class="fa-solid fa-file-pdf"></i> Pobierz potwierdzenie rezerwacji</a>
+            </div>
             <div class="personal_details">
                 <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
                 <p>Imię: <span th:text="${orderDTO.firstName}"></span></p>
@@ -65,12 +68,15 @@
                 <p>Ilość dni: <span th:text="${orderDTO.days}"></span></p>
                 <p>Cena: <span th:text="${orderDTO.price}"></span> PLN</p>
             </div>
-    </div>
+        </div>
 
-    <div class="notfound" th:unless="${notFound == null}">
-       <p>Brak rezerwacji o numerze <span th:text="${notFound}"></span>. Spróbuj jeszcze raz uwzględniająć wielkość liter.</p>
-    </div>
-</main>
+        <div class="notfound" th:unless="${notFound == null}">
+            <p>Brak rezerwacji o numerze <span th:text="${notFound}"></span>. Spróbuj jeszcze raz uwzględniająć wielkość liter.</p>
+        </div>
+    </main>
+</div>
+
+
 
 </body>
 <script type="text/javascript"></script>

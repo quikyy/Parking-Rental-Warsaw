@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -17,8 +18,8 @@ public class OrderDTO {
     private String carMark;
     private String carPlate;
     private String emailAddress;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private BigDecimal price;
     private Long days;
     private ParkingSpot parkingSpot;

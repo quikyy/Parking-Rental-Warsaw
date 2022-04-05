@@ -2,18 +2,20 @@ package com.quikyy.Order;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.quikyy.Parking.ParkingSpot;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @ToString
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
 
     @Id
@@ -27,8 +29,8 @@ public class Order {
     private String emailAddress;
     private BigDecimal price;
     private long days;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String referenceNumber;
 
     @JsonBackReference
@@ -42,8 +44,5 @@ public class Order {
     @JsonIgnore
     @Transient
     private String endDateAsString;
-
-    public Order() {
-    }
 
 }

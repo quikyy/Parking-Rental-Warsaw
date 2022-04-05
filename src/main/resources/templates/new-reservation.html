@@ -104,7 +104,7 @@
 
                 <div>
                     <p>Data zakończenia</p>
-                    <input th:field="*{endDateAsString}" type="date" class="calendar end_date" placeholder="np: 2022-09-26">
+                    <input th:field="*{endDateAsString}" type="datetime-local" class="calendar end_date" placeholder="np: 2022-09-26">
                 </div>
             </div>
 
@@ -137,6 +137,10 @@
 flatpickr(".calendar", {
     minDate: "today",
     showMonths: 1,
+    enableTime: true,
+    allowInput: true,
+    minuteIncrement: 60,
+    time_24hr: true
 });
 </script>
 </html>

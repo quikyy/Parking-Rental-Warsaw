@@ -8,9 +8,12 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
@@ -37,11 +40,8 @@ public class OrderService {
         }
     }
 
-    public LocalDate formatStartEndDate(String data) {
-        data = data.substring(0, 10);
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(data, dateTimeFormatter);
-        return localDate;
+    public LocalDateTime formatStartEndDate(String data) {
+        return LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
     public String generateRefernceNumber(){
@@ -77,23 +77,25 @@ public class OrderService {
                 orderDTO.setParkingSpot(spot.get());
                 orderDTO.setPrice(calculatePrice(orderDTO));
 
-                Order order = new Order();
-                order.setFirstName(orderDTO.getFirstName());
-                order.setLastName(orderDTO.getLastName());
-                order.setTelNum(orderDTO.getTelNum());
-                order.setCarMark(orderDTO.getCarMark());
-                order.setCarPlate(orderDTO.getCarPlate());
-                order.setEmailAddress(orderDTO.getEmailAddress());
-                order.setStartDate(orderDTO.getStartDate());
-                order.setEndDate(orderDTO.getEndDate());
-                order.setParkingSpot(spot.get());
-                order.setReferenceNumber(orderDTO.getReferenceNumber());
-                order.setDays(orderDTO.getDays());
-                order.setPrice(orderDTO.getPrice());
+                Order order = Order.builder()
+                                .firstName(orderDTO.getFirstName())
+                                .lastName(orderDTO.getLastName())
+                                .telNum(orderDTO.getTelNum())
+                                .carMark(orderDTO.getCarMark())
+                                .carPlate(orderDTO.getCarPlate())
+                                .emailAddress(orderDTO.getEmailAddress())
+                                .startDate(orderDTO.getStartDate())
+                                .endDate(orderDTO.getEndDate())
+                                .parkingSpot(spot.get())
+                                .referenceNumber(orderDTO.getReferenceNumber())
+                                .days(orderDTO.getDays())
+                                .price(orderDTO.getPrice())
+                                .build();
 
                 orderRepository.save(order);
 
                 spot.get().getOrderList().add(order);
+
                 parkingSpotRepository.save(spot.get());
 
 //                Wysyłanie maila z potwierdzeniem. Aktualnie: długo trwa, trzeba poprawić wiadomość która jest wysyłana.

@@ -16,7 +16,7 @@ public class CheckController {
     private final CurrentWeather currentWeather;
 
     @GetMapping("check-reservation")
-    public String showCheckHTML(Model model, Model notfound, String referenceNumber){
+    public String showCheckHTML(Model model, Model notfound, @NotNull String referenceNumber){
     model.addAttribute("currentWeather", currentWeather.getCurrentWeather());
         if(referenceNumber == null){
             model.addAttribute("orderDTO", new OrderDTO());

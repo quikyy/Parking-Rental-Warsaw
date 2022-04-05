@@ -2,6 +2,7 @@ package com.quikyy.Parking;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.quikyy.Order.Order;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class ParkingSpot {
 
     @Id
@@ -22,7 +24,6 @@ public class ParkingSpot {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Order> orderList = new ArrayList<>();
 
-    public ParkingSpot() {
-    }
+
 
 }

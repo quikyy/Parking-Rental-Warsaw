@@ -21,8 +21,6 @@ import java.util.Scanner;
 @Service
 public class CurrentWeather {
     private final AppDetailsRepostiory appDetailsRepostiory;
-    public static final BigDecimal temp0 = new BigDecimal(0);
-
     public BigDecimal getCurrentWeather() {
         String apikey = appDetailsRepostiory.findAppDetailsByTypeEquals("api_key").getDetails();
         Optional <BigDecimal> temp = Optional.empty();
@@ -36,16 +34,16 @@ public class CurrentWeather {
                 throw new IOException("HttpResponseCode: " + responseCode);
             }
             else {
-                String inline = "";
+                StringBuilder stringBuilder = new StringBuilder();
                 Scanner scanner = new Scanner(url.openStream());
                 while (scanner.hasNext()) {
-                    inline += scanner.nextLine();
+                   stringBuilder.append(scanner.nextLine());
                 }
                 scanner.close();
 
                 JSONParser parser = new JSONParser();
 
-                JSONObject data_obj = (JSONObject) parser.parse(inline);
+                JSONObject data_obj = (JSONObject) parser.parse(String.valueOf(stringBuilder));
 
                 JSONObject obj = (JSONObject) data_obj.get("main");
 
