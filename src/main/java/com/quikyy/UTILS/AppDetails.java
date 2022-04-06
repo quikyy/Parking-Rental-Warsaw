@@ -16,4 +16,5 @@ public class AppDetails {
     private int id;
     private String type;
     private String details;
+    private int xyz2;
 }
