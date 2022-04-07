@@ -1,4 +1,5 @@
 package com.quikyy.Controller;
+import com.lowagie.text.Paragraph;
 import com.quikyy.Order.OrderDTO;
 import com.quikyy.Order.OrderService;
 import com.quikyy.UTILS.CurrentWeather.CurrentWeather;
@@ -10,6 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.CookieStore;
+import java.net.HttpCookie;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 @AllArgsConstructor
 public class NewController {
@@ -17,14 +26,12 @@ public class NewController {
     private final CurrentWeather currentWeather;
 
     @GetMapping("new-reservation")
-    public String newOrderHTML(@ModelAttribute("rejectedOrder") OrderDTO rejectedOrder, Model model) {
-        model.addAttribute("currentWeather", currentWeather.getCurrentWeather());
+    public String newOrderHTML(@ModelAttribute("rejectedOrder") OrderDTO rejectedOrder, Model model, HttpServletRequest request, HttpServletResponse response) {
+        currentWeather.getWeather(response, request, model);
         if(rejectedOrder.getFirstName() == null){
             model.addAttribute("newOrderDTO", new OrderDTO());
         }
         else {
-            rejectedOrder.setStartDateAsString("");
-            rejectedOrder.setEndDateAsString("");
             model.addAttribute("newOrderDTO", rejectedOrder);
         }
        return "new-reservation";
@@ -32,10 +39,13 @@ public class NewController {
 
     @PostMapping("new-reservation")
     public String makeNewReservation(@ModelAttribute OrderDTO orderDTO, RedirectAttributes redirectAttributes) {
+
         if (orderService.manageOrder(orderDTO)) {
             redirectAttributes.addFlashAttribute("confirmedOrder", orderDTO);
             return "redirect:summary-reservation/" + orderDTO.getReferenceNumber();
-        } else {
+        }
+
+        else {
             redirectAttributes.addFlashAttribute("rejectedOrder", orderDTO);
             return "redirect:new-reservation";
         }

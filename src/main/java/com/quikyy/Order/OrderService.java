@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -55,7 +54,7 @@ public class OrderService {
         return new BigDecimal(days * parkingPrice.getPricePerNight());
     }
 
-    public void sendConfirmationMail(Order order){
+    public SimpleMailMessage sendConfirmationMail(Order order){
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(order.getEmailAddress());
         message.setSubject("Potwierdzenie rezerwacji " + order.getReferenceNumber());
@@ -65,7 +64,7 @@ public class OrderService {
                 "Data rozpoczęcia: " + order.getStartDate() + "\n" +
                 "Data zakończenia :" + order.getLastName() + "\n " +
                 "etc....");
-        mailSender.getJavaMailSender().send(message);
+       return message;
     }
 
     public boolean manageOrder(OrderDTO orderDTO){
@@ -97,8 +96,6 @@ public class OrderService {
 
                 parkingSpotRepository.save(spot.get());
 
-//                Wysyłanie maila z potwierdzeniem. Aktualnie: długo trwa, trzeba poprawić wiadomość która jest wysyłana.
-//                sendConfirmationMail(order);
                 return true;
             }
         }

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @AllArgsConstructor
 @Controller
 public class CheckController {
@@ -16,8 +19,8 @@ public class CheckController {
     private final CurrentWeather currentWeather;
 
     @GetMapping("check-reservation")
-    public String showCheckHTML(Model model, Model notfound, @NotNull String referenceNumber){
-    model.addAttribute("currentWeather", currentWeather.getCurrentWeather());
+    public String showCheckHTML(Model model, Model notfound, @NotNull String referenceNumber, HttpServletRequest request, HttpServletResponse response){
+        currentWeather.getWeather(response, request, model);
         if(referenceNumber == null){
             model.addAttribute("orderDTO", new OrderDTO());
         }

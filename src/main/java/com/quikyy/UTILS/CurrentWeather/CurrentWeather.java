@@ -7,6 +7,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -21,7 +27,9 @@ import java.util.Scanner;
 @Service
 public class CurrentWeather {
     private final AppDetailsRepostiory appDetailsRepostiory;
-    public BigDecimal getCurrentWeather() {
+
+    public void getCurrentWeather(HttpServletResponse response, Model model) {
+        System.out.println("Looking for weather....");
         String apikey = appDetailsRepostiory.findAppDetailsByTypeEquals("api_key").getDetails();
         Optional <BigDecimal> temp = Optional.empty();
         try {
@@ -60,11 +68,27 @@ public class CurrentWeather {
         }
 
         if(temp.isPresent()){
-            return temp.get();
+            Cookie cookie = new Cookie("weatherTemp", String.valueOf(temp.get()));
+            cookie.setMaxAge(3600);
+            response.addCookie(cookie);
+            model.addAttribute("currentWeather", temp.get());
+
         }
         else {
-            return null;
+            model.addAttribute("currentWeather", "0");
         }
-
     }
+
+    public void getWeather(HttpServletResponse response, HttpServletRequest request, Model model){
+        Optional<String> weather = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("weatherTemp")).map(cookie -> cookie.getValue()).findAny();
+
+        if(weather.isPresent()){
+            model.addAttribute("currentWeather", weather.get());
+        }
+        else {
+            getCurrentWeather(response, model);
+        }
+    }
+
+
 }
