@@ -27,11 +27,11 @@ import java.util.Scanner;
 @Service
 public class CurrentWeather {
     private final AppDetailsRepostiory appDetailsRepostiory;
+    Optional <BigDecimal> temp = Optional.empty();
 
-    public void getCurrentWeather(HttpServletResponse response, Model model) {
+    public void getCurrentWeatherFromAPI() {
         System.out.println("Looking for weather....");
         String apikey = appDetailsRepostiory.findAppDetailsByTypeEquals("api_key").getDetails();
-        Optional <BigDecimal> temp = Optional.empty();
         try {
             URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&appid=" + apikey);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -66,7 +66,10 @@ public class CurrentWeather {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
 
+    public void saveWeatherToUserCookie(HttpServletResponse response, Model model){
+        getCurrentWeatherFromAPI();
         if(temp.isPresent()){
             Cookie cookie = new Cookie("weatherTemp", String.valueOf(temp.get()));
             cookie.setMaxAge(3600);
@@ -86,7 +89,7 @@ public class CurrentWeather {
             model.addAttribute("currentWeather", weather.get());
         }
         else {
-            getCurrentWeather(response, model);
+            saveWeatherToUserCookie(response, model);
         }
     }
 

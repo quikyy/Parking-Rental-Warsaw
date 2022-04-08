@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.math.BigDecimal;
@@ -67,6 +68,7 @@ public class OrderService {
        return message;
     }
 
+    @Transactional
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
             Optional<ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
@@ -96,6 +98,7 @@ public class OrderService {
 
                 parkingSpotRepository.save(spot.get());
 
+                mailSender.getJavaMailSender().send(sendConfirmationMail(order));
                 return true;
             }
         }
