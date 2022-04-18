@@ -54,35 +54,6 @@ public class OrderService {
         return new BigDecimal(days * parkingPrice.getPricePerNight());
     }
 
-
-    @Transactional
-    public boolean manageOrder(OrderDTO orderDTO){
-        if(validateStartEndDate(orderDTO)) {
-            Optional<ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
-            if(spot.isPresent()){
-                orderDTO.setReferenceNumber(generateReferenceNumber());
-                orderDTO.setParkingSpot(spot.get());
-                orderDTO.setPrice(calculatePrice(orderDTO));
-
-                Order order = buildOrder(orderDTO, spot.get());
-
-                orderRepository.save(order);
-
-                spot.get().getOrderList().add(order);
-
-                parkingSpotRepository.save(spot.get());
-
-                mailSenderService.sendConfirmationMail(order);
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
-        return false;
-    }
-
-
     public Order buildOrder(OrderDTO orderDTO, ParkingSpot spot){
         return Order.builder()
                 .firstName(orderDTO.getFirstName())
@@ -99,4 +70,34 @@ public class OrderService {
                 .price(orderDTO.getPrice())
                 .build();
     }
+
+    @Transactional
+    public boolean manageOrder(OrderDTO orderDTO){
+        if(validateStartEndDate(orderDTO)) {
+            Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
+            if(freeParkingSpot.isPresent()){
+                orderDTO.setReferenceNumber(generateReferenceNumber());
+                orderDTO.setParkingSpot(freeParkingSpot.get());
+                orderDTO.setPrice(calculatePrice(orderDTO));
+
+                Order order = buildOrder(orderDTO, freeParkingSpot.get());
+
+                orderRepository.save(order);
+
+                freeParkingSpot.get().getOrderList().add(order);
+
+                parkingSpotRepository.save(freeParkingSpot.get());
+
+                mailSenderService.sendConfirmationMail(order);
+
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+        return false;
+    }
+
+
 }

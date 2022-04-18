@@ -20,10 +20,10 @@ public class ParkingService {
 
     @Transactional
     public Optional <ParkingSpot> getFreeParkingSpot(OrderDTO orderDTO) {
-        long hoursUntillStartEndCustomer = orderDTO.getStartDate().until(orderDTO.getEndDate(), ChronoUnit.HOURS);
+        long hoursUntilStartEndCustomer = orderDTO.getStartDate().until(orderDTO.getEndDate(), ChronoUnit.HOURS);
 
         List <LocalDateTime> customerDataRange = new ArrayList<>();
-        for(int i = 0; i <= hoursUntillStartEndCustomer; i++){
+        for(int i = 0; i <= hoursUntilStartEndCustomer; i++){
             customerDataRange.add(orderDTO.getStartDate().plusHours(i));
         }
 
@@ -40,10 +40,6 @@ public class ParkingService {
                     long hoursUntilStartEndOrder = order.getStartDate().until(order.getEndDate(), ChronoUnit.HOURS);
                     for(int i = 0; i <= hoursUntilStartEndOrder; i++){
                         orderDateRange.add(order.getStartDate().plusHours(i));
-                    }
-
-                    for(LocalDateTime localDateTime : orderDateRange){
-                        System.out.println(localDateTime);
                     }
 
                     boolean isTaken = orderDateRange.stream().anyMatch(localDateTime -> customerDataRange.contains(localDateTime));
