@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AppDetailsRepostiory extends JpaRepository<AppDetails, Integer> {
-    public AppDetails findAppDetailsByTypeEquals(String keyword);
+    AppDetails findAppDetailsByTypeEquals(String keyword);
 }

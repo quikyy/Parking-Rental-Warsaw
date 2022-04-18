@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @AllArgsConstructor
 @Controller
-public class HomeController {
+public class HomeController{
     private final ParkingSpotRepository parkingSpotRepository;
     private final CurrentWeather currentWeather;
 

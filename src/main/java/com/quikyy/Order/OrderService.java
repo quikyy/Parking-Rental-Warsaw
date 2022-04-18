@@ -42,9 +42,9 @@ public class OrderService {
         return LocalDateTime.parse(data, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 
-    public String generateRefernceNumber(){
+    public String generateReferenceNumber(){
         final int referenceNumberLength = 8;
-        final String chars = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        final String chars = "0123456789QWERTYUIOPASDFGHJKLZXCVBNM";
         return RandomStringUtils.random(referenceNumberLength, chars);
     }
 
@@ -60,7 +60,7 @@ public class OrderService {
         if(validateStartEndDate(orderDTO)) {
             Optional<ParkingSpot> spot = parkingService.getFreeParkingSpot(orderDTO);
             if(spot.isPresent()){
-                orderDTO.setReferenceNumber(generateRefernceNumber());
+                orderDTO.setReferenceNumber(generateReferenceNumber());
                 orderDTO.setParkingSpot(spot.get());
                 orderDTO.setPrice(calculatePrice(orderDTO));
 

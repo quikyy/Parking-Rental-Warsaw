@@ -58,8 +58,8 @@
             <div class="dates">
                 <h1><i class="fa-solid fa-square-parking"></i> Dane podróży</h1>
                 <p>Numer miejsca parkingowego: <span th:text="${orderDTO.parkingSpot.id}"></span></p>
-                <p>Data rozpoczęcia: <span th:text="${orderDTO.startDate}"></span></p>
-                <p>Data zakończenia: <span th:text="${orderDTO.endDate}"></span></p>
+                <p>Data rozpoczęcia: <span th:text="${orderDTO.startDateAsString}"></span></p>
+                <p>Data zakończenia: <span th:text="${orderDTO.endDateAsString}"></span></p>
                 <p>Ilość dni: <span th:text="${orderDTO.days}"></span></p>
                 <p>Cena: <span th:text="${orderDTO.price}"></span> PLN</p>
             </div>

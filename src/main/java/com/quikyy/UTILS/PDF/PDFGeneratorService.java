@@ -3,7 +3,6 @@ package com.quikyy.UTILS.PDF;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.PdfWriter;
 import com.quikyy.Order.Order;
-import com.quikyy.Order.OrderDTO;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
