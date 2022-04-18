@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -42,14 +41,14 @@ public class ParkingService {
                     for(int i = 0; i <= hoursUntilStartEndOrder; i++){
                         orderDateRange.add(order.getStartDate().plusHours(i));
                     }
+
+                    for(LocalDateTime localDateTime : orderDateRange){
+                        System.out.println(localDateTime);
+                    }
+
                     boolean isTaken = orderDateRange.stream().anyMatch(localDateTime -> customerDataRange.contains(localDateTime));
 
-                    if(isTaken){
-                        System.out.println("ZAJĘTĘ!");
-                        return Optional.empty();
-                    }
-                    else {
-                        System.out.println("WOLNE!!");
+                    if(!isTaken){
                         return Optional.of(parkingSpot);
                     }
                 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Controller
@@ -20,18 +21,18 @@ public class CheckController {
 
     @GetMapping("check-reservation")
     public String showCheckHTML(Model model, Model notfound, @NotNull String referenceNumber, HttpServletRequest request, HttpServletResponse response){
-        currentWeather.getWeather(response, request, model);
+        model.addAttribute("currentWeather", currentWeather.getWeatherFromUserCookies(response, request));
         if(referenceNumber == null){
             model.addAttribute("orderDTO", new OrderDTO());
         }
         else {
-            Order orderDTO = orderRepository.findOrderByReferenceNumberEquals(referenceNumber);
-            if(orderDTO == null){
+            Optional <Order> orderDTO = orderRepository.getOrderByReferenceNumberEquals(referenceNumber);
+            if(orderDTO.isEmpty()){
                 notfound.addAttribute("notFound", referenceNumber);
                 model.addAttribute("orderDTO", new OrderDTO());
             }
             else {
-                model.addAttribute("orderDTO", orderDTO);
+                model.addAttribute("orderDTO", orderDTO.get());
             }
         }
         return "check-reservation";

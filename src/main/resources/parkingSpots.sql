@@ -1,5 +1,3 @@
 insert into "ParkingSpot" ("id") values (default)
 insert into "ParkingSpot" ("id") values (default)
 insert into "AppDetails" ("type", "details") values ('api_key', '61bed41a6bb495305b1b21efbbd80c4d')
-insert into "Order" ("id", "carMark", "carPlate", "days", "emailAddress", "endDate", "firstName", "lastName", "spot_id", "price", "referenceNumber", "startDate", "telNum") values (default, 'VW GOLF', 'WPL41516', 2, 'szimidub@gmail.com', '2022-04-10 08:00:00', 'Szymon', 'Paczuski', 1, 100, '7luL1r3T', '2022-04-07 12:00:00','512 596 378')
-insert into "ParkingSpot_orderList" ("ParkingSpot_id", "orderList_id") values (1, 1)

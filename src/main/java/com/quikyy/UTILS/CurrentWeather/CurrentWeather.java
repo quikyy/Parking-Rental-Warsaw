@@ -1,23 +1,16 @@
 package com.quikyy.UTILS.CurrentWeather;
-
 import com.quikyy.UTILS.AppDetailsRepostiory;
 import lombok.AllArgsConstructor;
-
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Optional;
@@ -27,11 +20,10 @@ import java.util.Scanner;
 @Service
 public class CurrentWeather {
     private final AppDetailsRepostiory appDetailsRepostiory;
-    Optional <BigDecimal> temp = Optional.empty();
 
-    public void getCurrentWeatherFromAPI() {
-        System.out.println("Looking for weather....");
+    public Optional<String> getTemperatureFromAPI(HttpServletResponse response) {
         String apikey = appDetailsRepostiory.findAppDetailsByTypeEquals("api_key").getDetails();
+        Optional <String> temp = Optional.empty();
         try {
             URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&appid=" + apikey);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,46 +42,48 @@ public class CurrentWeather {
                 scanner.close();
 
                 JSONParser parser = new JSONParser();
-
                 JSONObject data_obj = (JSONObject) parser.parse(String.valueOf(stringBuilder));
-
                 JSONObject obj = (JSONObject) data_obj.get("main");
 
-                temp = Optional.of(new BigDecimal(String.valueOf(obj.get("temp"))).setScale(0, RoundingMode.FLOOR));
+                temp = Optional.of(String.valueOf(obj.get("temp")));
+                temp = formatTemperature(temp);
             }
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
+
+        } catch (ParseException | IOException e) {
             e.printStackTrace();
         }
+
+        saveWeatherToUserCookies(response, temp);
+        return temp;
     }
 
-    public void saveWeatherToUserCookie(HttpServletResponse response, Model model){
-        getCurrentWeatherFromAPI();
+    public Optional<String> formatTemperature(Optional<String> temp){
+        int indexOfDotInTemp = temp.get().indexOf(".");
+        temp = Optional.of(temp.get().substring(0, indexOfDotInTemp) + "°C");
+        return temp;
+    }
+
+    public void saveWeatherToUserCookies(HttpServletResponse response, Optional <String> temp){
         if(temp.isPresent()){
-            Cookie cookie = new Cookie("weatherTemp", String.valueOf(temp.get()));
+            Cookie cookie = new Cookie("weatherTemp", temp.get());
             cookie.setMaxAge(3600);
             response.addCookie(cookie);
-            model.addAttribute("currentWeather", temp.get());
-
-        }
-        else {
-            model.addAttribute("currentWeather", "0");
         }
     }
 
-    public void getWeather(HttpServletResponse response, HttpServletRequest request, Model model){
-        Optional<String> weather = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("weatherTemp")).map(cookie -> cookie.getValue()).findAny();
+    public String getWeatherFromUserCookies(HttpServletResponse response, HttpServletRequest request){
+        Optional<String> weatherTemp = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("weatherTemp")).map(cookie -> cookie.getValue()).findAny();
 
-        if(weather.isPresent()){
-            model.addAttribute("currentWeather", weather.get());
+        if(weatherTemp.isPresent()){
+            return weatherTemp.get();
         }
         else {
-            saveWeatherToUserCookie(response, model);
+            if(getTemperatureFromAPI(response).isPresent()){
+                return getTemperatureFromAPI(response).get();
+            }
+            else {
+                return "";
+            }
         }
     }
 

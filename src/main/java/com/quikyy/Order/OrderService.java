@@ -1,12 +1,11 @@
 package com.quikyy.Order;
-import com.quikyy.UTILS.MailSender.MailSender;
 import com.quikyy.Parking.ParkingPrice;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
+import com.quikyy.UTILS.MailSender.MailSenderService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +20,12 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Service
 @AllArgsConstructor
 public class OrderService {
+
     private final OrderRepository orderRepository;
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingService parkingService;
-    private final MailSender mailSender;
+    private final MailSenderService mailSenderService;
     private final ParkingPrice parkingPrice;
-
 
     public boolean validateStartEndDate(OrderDTO orderDTO){
         orderDTO.setStartDate(formatStartEndDate(orderDTO.getStartDateAsString()));
@@ -55,18 +54,6 @@ public class OrderService {
         return new BigDecimal(days * parkingPrice.getPricePerNight());
     }
 
-    public SimpleMailMessage sendConfirmationMail(Order order){
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(order.getEmailAddress());
-        message.setSubject("Potwierdzenie rezerwacji " + order.getReferenceNumber());
-        message.setText("Dzień dobry! \n" +
-                "Potwierdzenie rezerwacji na naszym parkingu, poniżej przesyłamy wszystkie szczegóły: \n" +
-                "Imię i nazwsiko: " + order.getFirstName() + " " + order.getLastName() + "\n" +
-                "Data rozpoczęcia: " + order.getStartDate() + "\n" +
-                "Data zakończenia :" + order.getLastName() + "\n " +
-                "etc....");
-       return message;
-    }
 
     @Transactional
     public boolean manageOrder(OrderDTO orderDTO){
@@ -77,20 +64,7 @@ public class OrderService {
                 orderDTO.setParkingSpot(spot.get());
                 orderDTO.setPrice(calculatePrice(orderDTO));
 
-                Order order = Order.builder()
-                                .firstName(orderDTO.getFirstName())
-                                .lastName(orderDTO.getLastName())
-                                .telNum(orderDTO.getTelNum())
-                                .carMark(orderDTO.getCarMark())
-                                .carPlate(orderDTO.getCarPlate())
-                                .emailAddress(orderDTO.getEmailAddress())
-                                .startDate(orderDTO.getStartDate())
-                                .endDate(orderDTO.getEndDate())
-                                .parkingSpot(spot.get())
-                                .referenceNumber(orderDTO.getReferenceNumber())
-                                .days(orderDTO.getDays())
-                                .price(orderDTO.getPrice())
-                                .build();
+                Order order = buildOrder(orderDTO, spot.get());
 
                 orderRepository.save(order);
 
@@ -98,7 +72,7 @@ public class OrderService {
 
                 parkingSpotRepository.save(spot.get());
 
-                mailSender.getJavaMailSender().send(sendConfirmationMail(order));
+                mailSenderService.sendConfirmationMail(order);
                 return true;
             }
         }
@@ -106,5 +80,23 @@ public class OrderService {
             return false;
         }
         return false;
+    }
+
+
+    public Order buildOrder(OrderDTO orderDTO, ParkingSpot spot){
+        return Order.builder()
+                .firstName(orderDTO.getFirstName())
+                .lastName(orderDTO.getLastName())
+                .telNum(orderDTO.getTelNum())
+                .carMark(orderDTO.getCarMark())
+                .carPlate(orderDTO.getCarPlate())
+                .emailAddress(orderDTO.getEmailAddress())
+                .startDate(orderDTO.getStartDate())
+                .endDate(orderDTO.getEndDate())
+                .parkingSpot(spot)
+                .referenceNumber(orderDTO.getReferenceNumber())
+                .days(orderDTO.getDays())
+                .price(orderDTO.getPrice())
+                .build();
     }
 }

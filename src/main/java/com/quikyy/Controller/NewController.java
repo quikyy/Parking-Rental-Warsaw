@@ -1,23 +1,18 @@
 package com.quikyy.Controller;
-import com.lowagie.text.Paragraph;
 import com.quikyy.Order.OrderDTO;
 import com.quikyy.Order.OrderService;
 import com.quikyy.UTILS.CurrentWeather.CurrentWeather;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.net.CookieStore;
-import java.net.HttpCookie;
-import java.util.Arrays;
-import java.util.List;
+
 
 @Controller
 @AllArgsConstructor
@@ -27,7 +22,8 @@ public class NewController {
 
     @GetMapping("new-reservation")
     public String newOrderHTML(@ModelAttribute("rejectedOrder") OrderDTO rejectedOrder, Model model, HttpServletRequest request, HttpServletResponse response) {
-        currentWeather.getWeather(response, request, model);
+        model.addAttribute("currentWeather", currentWeather.getWeatherFromUserCookies(response, request));
+
         if(rejectedOrder.getFirstName() == null){
             model.addAttribute("newOrderDTO", new OrderDTO());
         }
