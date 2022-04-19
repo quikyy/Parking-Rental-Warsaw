@@ -133,6 +133,7 @@
 <script type="text/javascript" th:src="@{/js/header.js}"></script>
 <script type="text/javascript" th:src="@{/js/new.js}"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/pl.js"></script>
 <script>
 flatpickr(".calendar", {
     minDate: "today",
@@ -140,7 +141,8 @@ flatpickr(".calendar", {
     enableTime: true,
     allowInput: true,
     minuteIncrement: 60,
-    time_24hr: true
+    time_24hr: true,
+    "locale": "pl"
 });
 </script>
 </html>

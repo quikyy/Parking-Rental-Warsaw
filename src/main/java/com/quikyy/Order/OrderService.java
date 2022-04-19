@@ -19,6 +19,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -71,7 +72,7 @@ public class OrderService {
                 .build();
     }
 
-    @Transactional
+    @Transactional()
     public boolean manageOrder(OrderDTO orderDTO){
         if(validateStartEndDate(orderDTO)) {
             Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
