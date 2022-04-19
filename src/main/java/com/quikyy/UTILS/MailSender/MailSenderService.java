@@ -27,16 +27,20 @@ public class MailSenderService {
                     "Data zakończenia :" + order.getLastName() + "\n " +
                     "etc....");
 
-          singleThreadExecutor.submit(new Runnable() {
-              @Override
-              public void run() {
-                  try {
-                      javaMailSender.send(message);
-                  } catch (MailException e) {
-                      e.printStackTrace();
-                  }
-              }
-          });
+            createThreadAndSendMessage(message);
+    }
+
+    public void createThreadAndSendMessage(SimpleMailMessage message){
+        singleThreadExecutor.submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    javaMailSender.send(message);
+                } catch (MailException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 }
