@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,6 +21,8 @@ public class HomeController{
 
     @GetMapping("/")
     public String test(Model model, HttpServletResponse response, HttpServletRequest request){
+//        Cookie cookie = new Cookie("test", "testvalue");
+//        response.addCookie(cookie);
         model.addAttribute("currentWeather", currentWeather.getWeatherFromUserCookies(response, request));
         return "index";
     }

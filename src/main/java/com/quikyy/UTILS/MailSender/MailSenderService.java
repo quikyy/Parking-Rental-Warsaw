@@ -14,7 +14,7 @@ public class MailSenderService {
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     @Autowired
     private JavaMailSender javaMailSender;
-    ExecutorService singleThreadExecutor = Executors.newSingleThreadExecutor();
+    ExecutorService singleThreadExecutor = Executors.newFixedThreadPool(10);
 
     public void sendConfirmationMail(Order order){
             SimpleMailMessage message = new SimpleMailMessage();
@@ -35,6 +35,7 @@ public class MailSenderService {
             @Override
             public void run() {
                 try {
+                    //todo vertex mail
                     javaMailSender.send(message);
                 } catch (MailException e) {
                     e.printStackTrace();

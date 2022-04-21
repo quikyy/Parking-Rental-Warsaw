@@ -1,5 +1,6 @@
 package com.quikyy.Order;
 import com.quikyy.Parking.ParkingSpot;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.math.BigDecimal;
@@ -24,5 +25,6 @@ public class OrderDTO {
     private String referenceNumber;
     public OrderDTO() {
     }
+
 
 }

@@ -1,9 +1,13 @@
 package com.quikyy.UTILS.CurrentWeather;
-import com.quikyy.UTILS.AppDetailsRepostiory;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
@@ -16,13 +20,13 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.Scanner;
 
-@AllArgsConstructor
-@Service
+@NoArgsConstructor
+@Component
 public class CurrentWeather {
-    private final AppDetailsRepostiory appDetailsRepostiory;
+    @Value("${myapp.details.weatherApiKey}")
+    private String apikey;
 
     public Optional<String> getTemperatureFromAPI(HttpServletResponse response) {
-        String apikey = appDetailsRepostiory.findAppDetailsByTypeEquals("api_key").getDetails();
         Optional <String> temp = Optional.empty();
         try {
             URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=Warsaw&units=metric&appid=" + apikey);
@@ -71,21 +75,30 @@ public class CurrentWeather {
         }
     }
 
-    public String getWeatherFromUserCookies(HttpServletResponse response, HttpServletRequest request){
-        Optional<String> weatherTemp = Arrays.stream(request.getCookies()).filter(cookie -> cookie.getName().equals("weatherTemp")).map(cookie -> cookie.getValue()).findAny();
+    public String getWeatherFromUserCookies(HttpServletResponse response, HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
 
-        if(weatherTemp.isPresent()){
-            return weatherTemp.get();
+        if (cookies != null) {
+            Optional<String> weatherTemp = Arrays.stream(cookies).filter(cookie -> cookie.getName().equals("weatherTemp")).map(cookie -> cookie.getValue()).findAny();
+            if (weatherTemp.isPresent()) {
+                return weatherTemp.get();
+            } else {
+                if (getTemperatureFromAPI(response).isPresent()) {
+                    return getTemperatureFromAPI(response).get();
+                } else {
+                    return "";
+                }
+            }
         }
         else {
-            if(getTemperatureFromAPI(response).isPresent()){
+            if (getTemperatureFromAPI(response).isPresent()) {
                 return getTemperatureFromAPI(response).get();
-            }
-            else {
+            } else {
                 return "";
             }
         }
-    }
+
+        }
 
 
 }

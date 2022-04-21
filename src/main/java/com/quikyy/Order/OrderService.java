@@ -77,6 +77,36 @@ public class OrderService {
         if(validateStartEndDate(orderDTO)) {
             Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
             if(freeParkingSpot.isPresent()){
+                //todo clowanie
+                orderDTO.setReferenceNumber(generateReferenceNumber());
+                orderDTO.setParkingSpot(freeParkingSpot.get());
+                orderDTO.setPrice(calculatePrice(orderDTO));
+
+                Order order = buildOrder(orderDTO, freeParkingSpot.get());
+
+
+                orderRepository.save(order);
+
+                freeParkingSpot.get().getOrderList().add(order);
+
+                parkingSpotRepository.save(freeParkingSpot.get());
+
+                mailSenderService.sendConfirmationMail(order);
+
+                return true;
+            }
+        }
+        else {
+            return false;
+        }
+        return false;
+    }
+
+    @Transactional()
+    public boolean manageOrder1(OrderDTO orderDTO){
+        if(validateStartEndDate(orderDTO)) {
+            Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
+            if(freeParkingSpot.isPresent()){
                 orderDTO.setReferenceNumber(generateReferenceNumber());
                 orderDTO.setParkingSpot(freeParkingSpot.get());
                 orderDTO.setPrice(calculatePrice(orderDTO));
