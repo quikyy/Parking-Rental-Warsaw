@@ -32,7 +32,7 @@ build/
 .vscode/
 
 /src/main/java/com/quikyy/UTILS/MailSender/MailSender.java
-/src/main/resources/static/css
+/src/main/resources/static/cssstyles
 /src/main/resources/static/images
 /src/main/resources/static/webfonts
 /mvnw
