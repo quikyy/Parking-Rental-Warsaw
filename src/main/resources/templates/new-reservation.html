@@ -63,22 +63,22 @@
                 <h1><i class="fa-solid fa-circle-user"></i> Dane osobowe</h1>
                 <div>
                     <p>Imię</p>
-                    <input class="firstname_input" th:field="*{firstName}" type="text" placeholder="np: Jan">
+                    <input class="firstname_input" th:field="*{firstName}" type="text" placeholder="np: Jan" required>
                 </div>
 
                 <div>
                     <p>Nazwisko</p>
-                    <input class="lastname_input" th:field="*{lastName}" type="text" placeholder="np: Kowalski">
+                    <input class="lastname_input" th:field="*{lastName}" type="text" placeholder="np: Kowalski" required>
                 </div>
 
                 <div>
                     <p>Adres email: </p>
-                    <input class="email_input" th:field ="*{emailAddress}" placeholder="np: jan.kowalski@gmail.com">
+                    <input class="email_input" th:field ="*{emailAddress}" placeholder="np: jan.kowalski@gmail.com" required>
                 </div>
 
                 <div class="lastDiv">
                     <p>Telefon</p>
-                    <input class="phonenumber_input" th:field="*{telNum}" type="tel" placeholder="np: 587 782 647">
+                    <input class="phonenumber_input" th:field="*{telNum}" type="tel" placeholder="np: 587 782 647" required>
                 </div>
             </div>
 
@@ -86,12 +86,12 @@
                 <h1><i class="fa-solid fa-car-on"></i> Dane samochodu</h1>
                 <div>
                     <p>Marka i model samochodu</p>
-                    <input class="carmark_input" th:field="*{carMark}" type="text" placeholder="np: Volkswagen Golf" >
+                    <input class="carmark_input" th:field="*{carMark}" type="text" placeholder="np: Volkswagen Golf" required>
                 </div>
 
                 <div>
                     <p>Numer rejestracji</p>
-                    <input class="carplate_input" th:field="*{carPlate}" type="text" placeholder="np: WA 481006">
+                    <input class="carplate_input" th:field="*{carPlate}" type="text" placeholder="np: WA 481006" required>
                 </div>
             </div>
 

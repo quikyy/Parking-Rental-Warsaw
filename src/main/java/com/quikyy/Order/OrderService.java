@@ -3,7 +3,6 @@ import com.quikyy.Parking.ParkingPrice;
 import com.quikyy.Parking.ParkingService;
 import com.quikyy.Parking.ParkingSpot;
 import com.quikyy.Parking.ParkingSpotRepository;
-import com.quikyy.UTILS.MailSender.MailSenderService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,6 @@ public class OrderService {
     private final OrderRepository orderRepository;
     private final ParkingSpotRepository parkingSpotRepository;
     private final ParkingService parkingService;
-    private final MailSenderService mailSenderService;
     private final ParkingPrice parkingPrice;
 
     public boolean validateStartEndDate(OrderDTO orderDTO){
@@ -77,6 +75,7 @@ public class OrderService {
         if(validateStartEndDate(orderDTO)) {
             Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
             if(freeParkingSpot.isPresent()){
+
                 //todo clowanie
                 orderDTO.setReferenceNumber(generateReferenceNumber());
                 orderDTO.setParkingSpot(freeParkingSpot.get());
@@ -90,9 +89,6 @@ public class OrderService {
                 freeParkingSpot.get().getOrderList().add(order);
 
                 parkingSpotRepository.save(freeParkingSpot.get());
-
-                mailSenderService.sendConfirmationMail(order);
-
                 return true;
             }
         }
@@ -101,34 +97,4 @@ public class OrderService {
         }
         return false;
     }
-
-    @Transactional()
-    public boolean manageOrder1(OrderDTO orderDTO){
-        if(validateStartEndDate(orderDTO)) {
-            Optional<ParkingSpot> freeParkingSpot = parkingService.getFreeParkingSpot(orderDTO);
-            if(freeParkingSpot.isPresent()){
-                orderDTO.setReferenceNumber(generateReferenceNumber());
-                orderDTO.setParkingSpot(freeParkingSpot.get());
-                orderDTO.setPrice(calculatePrice(orderDTO));
-
-                Order order = buildOrder(orderDTO, freeParkingSpot.get());
-
-                orderRepository.save(order);
-
-                freeParkingSpot.get().getOrderList().add(order);
-
-                parkingSpotRepository.save(freeParkingSpot.get());
-
-                mailSenderService.sendConfirmationMail(order);
-
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
-        return false;
-    }
-
-
 }
