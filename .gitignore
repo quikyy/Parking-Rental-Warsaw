@@ -35,3 +35,6 @@ build/
 /src/main/resources/static/css
 /src/main/resources/static/images
 /src/main/resources/static/webfonts
+/mvnw
+mvnw.cmd
+.mvn
